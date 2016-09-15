@@ -31,7 +31,7 @@ while True:
 			print "received [%s]" % data
 
 			url = data.replace('\00','')
-			response = router(url)
+			response = router.get(url)
 
 			if response != "":
 				client_sock.send("[data-start]" + response + "[data-end]")

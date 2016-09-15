@@ -1,13 +1,12 @@
-# LIRC web admin
+# LIRC and Relay Server
 
-## Manage LIRC from web
+## Manage LIRC and Relay from web
 
 ### Install and run
 
 * Install requirements 'pip install -r reqs.txt'
-* Check client settings on /app/controllers.js
 * Run 'python webserver.py'
-* Open 'http://SERVER:8001/'
+* Open 'http://SERVER:80/'
 
 ![Screenshot](https://raw.githubusercontent.com/emi420/lirc-web-admin/master/screenshot.png)
 
