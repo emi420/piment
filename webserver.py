@@ -61,7 +61,7 @@ class WebServer(BaseHTTPRequestHandler):
         self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers()
 
-        response = self.router.post(self.rfile.read(int(self.headers['Content-Length'])))
+        response = self.router.post(self.path, self.rfile.read(int(self.headers['Content-Length'])))
         self.wfile.write(response)
 
     def do_GET(self):
