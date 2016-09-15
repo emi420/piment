@@ -74,7 +74,7 @@ class WebServer(BaseHTTPRequestHandler):
             self.send_header('Access-Control-Allow-Origin', '*')
             self.end_headers()
 
-            if self.path.startswith("/api/")
+            if self.path.startswith("/api/"):
                 response = self.router.get(self.path)
             else:
                 if self.path == "/":
