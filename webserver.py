@@ -12,7 +12,7 @@
  
 '''
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
-from os import curdir, sep, path
+from os import curdir, sep
 from router import Router
 
 '''

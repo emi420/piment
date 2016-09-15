@@ -14,6 +14,7 @@
 from irrecord import IRRecord
 from lirc import Lirc
 from relay import Relay
+from os import path as ospath
 
 '''
 Router routes addresses to actions
@@ -56,7 +57,7 @@ class Router(object):
                 response = self.relay.off(path.replace("/api/relay/off/", ""))
 
             elif path == "/api/get-ui-config/":
-                if path.isfile("remotes-ui.json"):
+                if ospath.isfile("remotes-ui.json"):
                     content = ""
                     with open("remotes-ui.json", "r") as f:
                         for line in f:
