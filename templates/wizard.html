@@ -1,0 +1,171 @@
+
+<div class="row">
+  <div class="col-sm-2">  
+  </div>
+  <div class="col-sm-8 text-center"> 
+    <h2>Asistente</h2>
+
+      <button ng-click="showOrHideStatus()" class="btn btn-xs btn-default btn-lg">
+        &nbsp; Debug &nbsp;
+      </button>
+      <div ng-show="showStatus">
+        <br />
+        <textarea ng-model="status" rows="10" class="form-control debug-textarea"></textarea>
+      </div>
+      <hr />
+
+
+      <div ng-show="(step=='error')">
+       <p><strong>Oops! ha ocurrido un error</strong>, por favor intenta nuevamente</p>
+
+        <br />
+        <textarea ng-model="status" rows="10" class="form-control debug-textarea"></textarea>
+        <br />
+
+        <button ng-click="errorOk()" class="btn btn-lg btn-default btn-lg">
+          &nbsp; Reintentar &nbsp;
+        </button>
+        <hr />
+      </div>
+
+      <div ng-show="(step==0)">
+       <p>Esta utilidad te permite grabar nuevos controles remotos.</p>
+        <hr />
+        <button ng-disabled="loading" ng-click="startWizard()" class="btn btn-default btn-lg">
+          &nbsp; Siguiente &nbsp;
+        </button>
+      </div>
+  
+      <div ng-show="(step==1)">
+        <p>
+          En el siguiente paso debes presionar diferentes botones y mantenerlos apretados por
+          aproximádamente un segundo.
+        </p>
+        <hr />
+        <button ng-disabled="loading" ng-click="step2()" class="btn btn-lg btn-default">
+          &nbsp; Comenzar &nbsp;
+        </button>
+      </div>
+  
+      <div ng-show="(step==2)">
+        <p ng-show="(pointCount <= 100)">
+          No dejes de presionar botones hasta completar este paso.
+        </p>
+        <p ng-show="(pointCount > 100)">
+          <strong>Ya falta poco!</strong> no dejes de presionar botones hasta completar este paso.
+        </p>
+        <hr />
+        <span ng-repeat="i in getNumber(pointCount) track by $index" class="status-point"></span>
+        <div ng-show="timeout">
+          <hr />
+          <p><strong>Ha pasado demasiado tiempo</strong> por favor vuelve a intentarlo.</p>
+          <button ng-disabled="loading" ng-click="discard()" class="btn btn-lg btn-default">
+            &nbsp; Reintentar &nbsp;
+          </button>
+        </div>
+      </div>
+
+      <div ng-show="(step==2.1)">
+        <p>A continuación deberás presionar un botón cualquiera de forma repetida lo más rápido que puedas. Debes asegurarte de continuar presionando el <strong>mismo</strong> botón y <strong>no mantenerlo presionado</strong>.</p>
+        <p>Si no ves aparecer ningún punto, entonces espera un poco entre cada vez que apretás el botón.</p>
+        
+        <hr />
+        <button ng-disabled="loading" ng-click="step2C()" class="btn btn-lg btn-default">
+          &nbsp; Comenzar &nbsp;
+        </button>
+      </div>
+
+      <div ng-show="(step==2.2)">
+        <p ng-show="(pointCount <= 100)">
+          No dejes de presionar el mismo botón hasta completar este paso.
+        </p>
+        <p ng-show="(pointCount > 100)">
+          <strong>Ya falta poco!</strong> no dejes de presionar el botón hasta completar este paso.
+        </p>
+        <hr />
+        <span ng-repeat="i in getNumber(pointCount) track by $index" class="status-point"></span>
+        <div ng-show="timeout">
+          <hr />
+          <p><strong>Ha pasado demasiado tiempo</strong> por favor vuelve a intentarlo.</p>
+          <button ng-disabled="loading" ng-click="discard()" class="btn btn-lg btn-default">
+            &nbsp; Reintentar &nbsp;
+          </button>
+        </div>
+      </div>
+
+      <div ng-show="(step==3)">
+        <p>
+          Ahora, graba cada botón.
+        </p>
+        <hr />
+
+        <div class="row" ng-hide="(recordMsg || recordingMsg)">
+          <div class="col-sm-8"> 
+            <form class="form-horizontal">
+              <select class="form-control" ng-model="selectedNamespace">
+                <option ng-repeat="option in namespace" value="{{option}}">{{option}}</option>
+              </select>
+            </form>
+          </div>
+          <div class="col-sm-4"> 
+            <button ng-click="recordButton()" class="btn btn-block btn-default">
+              Grabar
+            </button>
+          </div>
+        </div>
+
+        <div class="row" ng-show="recordMsg">
+          <h3><i class="glyphicon glyphicon-ok-circle"></i> Listo!</h3>
+        </div>
+
+        <div class="row" ng-show="recordingMsg">
+          <h4>Mantiene presionado el botón {{ selectedNamespace }} .</h4>
+        </div>
+
+        <hr />
+
+        <button ng-disabled="loading" ng-click="end()" class="btn btn-lg  btn-block btn-default">
+          &nbsp; Finalizar &nbsp;
+        </button>
+
+      </div>
+
+      <div ng-show="(step==4)">
+
+      <div ng-hide="saved">
+        <p>
+          Listo! ya puedes guardar la configuración del control remoto.
+        </p>
+        <div class="row" ng-hide="saved"> 
+          <div class="col-sm-12"> 
+            <textarea ng-model="config" rows="10" class="form-control"></textarea>
+            <hr />
+            <input type="text" ng-model="name" class="form-control input-lg" placeholder="Nombre del control" />
+          </div>
+        </div>
+        <br />
+        <div class="row">
+          <div class="col-sm-6"> 
+            <button ng-disabled="loading" ng-click="discard()" class="btn btn-block btn-lg btn-default">
+              &nbsp; Descartar &nbsp;
+            </button>
+          </div>
+          <div class="col-sm-6"> 
+            <button ng-disabled="loading" ng-click="save()" class="btn btn-block btn-lg btn-success">
+              &nbsp; Guardar &nbsp;
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" ng-show="saved"> 
+         <br />
+         <h3><i class="glyphicon glyphicon-ok-circle"></i> Guardado!</h3>
+         <br />
+      </div>
+
+  </div>
+  <div class="col-sm-2">  
+  </div>
+</div>
+

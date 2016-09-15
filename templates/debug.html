@@ -1,0 +1,40 @@
+
+
+<div class="row">
+  <div class="col-sm-2">  
+    <button ng-hide="getStatus" ng-click="IRRecord.launch()" class="btn btn-block btn-success">Start IRRecord</button>
+    <button ng-click="IRRecord.stop()" class="btn btn-block btn-danger">Stop</button>
+    <button ng-hide="testing" ng-click="IRRecord.enter()" class="btn btn-block btn-default">Send Return</button>
+    <button ng-hide="getStatus" ng-click="IRRecord.getLastConfig()" class="btn btn-block btn-default">Get last config</button>
+    <button ng-hide="getStatus" ng-click="IRRecord.mode2()" class="btn btn-block btn-default">IR Test</button>
+    <button ng-hide="getStatus" ng-click="IRRecord.startLirc()" class="btn btn-block btn-default">Start Lirc</button>
+    <button ng-hide="getStatus" ng-click="IRRecord.stopLirc()" class="btn btn-block btn-default">Stop Lirc</button>
+    <button ng-hide="getStatus" ng-click="IRRecord.getRemotes()" class="btn btn-block btn-default">Get remotes</button>
+  </div>
+  <div class="col-sm-10"> 
+    <form class="form-horizontal">
+     <textarea id="statusTextarea" ng-model="IRRecord.status" rows="20" class="form-control status-textarea"></textarea>
+    </form>
+  </div>
+</div>
+
+<hr />
+
+<div class="row">
+  <div class="col-sm-2">	
+	  <button ng-click="IRRecord.getNamespace()" class="btn btn-block btn-default">Get Namespace</button>
+  </div>
+  <div class="col-sm-8">	
+    <form class="form-horizontal">
+  	  <select class="form-control" ng-model="selectedNamespace">
+  		<option ng-repeat="option in namespace" value="{{option}}">{{option}}</option>
+  	  </select>
+    </form>
+  </div>
+  <div class="col-sm-2">  
+    <button ng-click="IRRecord.sendNamespace()" class="btn btn-block btn-default">Send</button>
+  </div>
+</div>
+
+<hr />
+

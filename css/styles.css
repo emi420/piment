@@ -1,0 +1,39 @@
+.status-textarea {
+	background: #333;
+	color: #f1f1f1;
+	border: none;
+	font-size: 0.85em;
+}
+.debug-textarea {
+	font-size: 0.85em;
+}
+.status-point {
+	width: 10px;
+	height: 10px;
+	background: #5cb85c;
+	border-radius: 100%;
+	display: inline-block;
+	margin-right: 1px;
+}
+
+.col-btn .btn {
+    overflow: hidden;
+    text-overflow: ellipsis;
+	height: 95px;
+}
+.col-btn .btn .icon {
+	font-size: 3em;
+}
+
+.col-btn {
+	padding: 1px;
+}
+.remote {
+	width: 350px;
+	margin: 0 auto;
+}
+
+.btn-colorselector ,
+.dropdown-colorselector>.dropdown-menu>li>.color-btn {
+  border: 1px solid #999;
+}
