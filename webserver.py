@@ -93,9 +93,9 @@ class WebServer(BaseHTTPRequestHandler):
 class http_server:
     def __init__(self, router):
         try:
-            APIServer.router = Router()
+            WebServer.router = Router()
 
-            server = HTTPServer(('', 80), APIServer)
+            server = HTTPServer(('', 80), WebServer)
             print 'Started LIRC Web Server on port 80' 
             server.serve_forever()
         except KeyboardInterrupt:
