@@ -101,6 +101,7 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
         },
 
         saveConfig: function() {
+          console.log($scope.IRRecord.config)
           IRRecord.saveConfig($scope.IRRecord.config).then(function(response) {
             $scope.IRRecord.status = response;
           })

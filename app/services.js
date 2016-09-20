@@ -101,7 +101,7 @@
 
           saveConfig: function(data) {
             var deferred = $q.defer();
-            $http.post(SETTINGS.host + '/api/irrecord/save-config/' ).then(function(r) {
+            $http.post(SETTINGS.host + '/api/irrecord/save-config/', data).then(function(r) {
               deferred.resolve("Ok.");
             }, function(r) {
               deferred.resolve("Error.");

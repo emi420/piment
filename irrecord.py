@@ -73,6 +73,14 @@ class IRRecord(object):
 
         return result
 
+    def save_config(self, data):
+        result = 'Not saved.'
+        with open(self._LIRCD_CFG_FILE, "w") as f:
+            f.write(data)
+            result = 'Saved.'
+
+        return result
+
     def get_namespace(self):
         content = ""
         p = pexpect.spawn('irrecord --list-namespace | grep KEY')

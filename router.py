@@ -39,11 +39,7 @@ class Router(object):
                 result = 'Saved.'
             return result
         if path == "/api/irrecord/save-config/":
-            result = 'Not saved.'
-            with open("/etc/lirc/lircd.conf", "a") as f:
-                f.write(data)
-                result = 'Saved.'
-            return result
+            return self.irrecord.save_config(data)
 
     def get(self, path):
         """Respond to a GET request."""
