@@ -38,6 +38,12 @@ class Router(object):
                 f.write(data)
                 result = 'Saved.'
             return result
+        if path == "/api/irrecord/save-config/":
+            result = 'Not saved.'
+            with open("/etc/lirc/lircd.conf", "a") as f:
+                f.write(data)
+                result = 'Saved.'
+            return result
 
     def get(self, path):
         """Respond to a GET request."""
@@ -78,6 +84,8 @@ class Router(object):
                     response = self.irrecord.send(split_path[len(split_path)-3])
                 if path == "/api/irrecord/get-last-config/":
                     response = self.irrecord.get_last_config()
+                if path == "/api/irrecord/get-config/":
+                    response = self.irrecord.get_config()
                 elif path == "/api/irrecord/get-namespace/":
                     response = self.irrecord.get_namespace()
                 elif path == "/api/irrecord/mode2/":
@@ -86,8 +94,6 @@ class Router(object):
                     response = self.irrecord.stop_lirc_service()
                 elif path == "/api/irrecord/start-lirc-service/":
                     response = self.irrecord.start_lirc_service()
-                elif path == "/api/irrecord/get-remotes/":
-                    response = self.irrecord.get_remotes()
                 elif path.endswith("/save-last-config/"):
                     split_path = path.split('/');
                     name = split_path[len(split_path)-3]

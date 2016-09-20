@@ -96,7 +96,7 @@ class IRRecord(object):
         self.process.sendline(command)
         return ''
 
-    def get_remotes(self):
+    def get_config(self):
         if path.isfile(self._LIRCD_CFG_FILE):
             content = ""
             with open(self._LIRCD_CFG_FILE) as f:

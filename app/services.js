@@ -6,7 +6,7 @@
 
     // Debug setting
     if (SETTINGS.host.indexOf("localhost") > -1) {
-      SETTINGS.host = SETTINGS.host.replace("localhost","192.168.10.101")
+      SETTINGS.host = SETTINGS.host.replace("localhost","192.168.10.107")
     }
 
     angular.module('app.services', [])
@@ -99,6 +99,16 @@
             return deferred.promise; 
           },
 
+          saveConfig: function(data) {
+            var deferred = $q.defer();
+            $http.post(SETTINGS.host + '/api/irrecord/save-config/' ).then(function(r) {
+              deferred.resolve("Ok.");
+            }, function(r) {
+              deferred.resolve("Error.");
+            });
+            return deferred.promise; 
+          },
+
           stopLircService: function() {
             var deferred = $q.defer();
             $http.get(SETTINGS.host + '/api/irrecord/stop-lirc-service/' ).then(function(r) {
@@ -151,7 +161,7 @@
 
           getRemotes: function(options) {
             var deferred = $q.defer();
-            $http.get(SETTINGS.host + '/api/irrecord/get-remotes/').then(function(r) {
+            $http.get(SETTINGS.host + '/api/irrecord/get-config/').then(function(r) {
               if (options && options.raw === true) {
                 deferred.resolve(r.data);
               } else {

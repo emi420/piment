@@ -25,6 +25,10 @@
               templateUrl: 'templates/wizard.html',
               controller: 'WizardCtrl'
            }).
+           when('/wizard2', {
+              templateUrl: 'templates/wizard2.html',
+              controller: 'Wizard2Ctrl'
+           }).
            when('/admin', {
               templateUrl: 'templates/admin.html',
               controller: 'AdminCtrl'

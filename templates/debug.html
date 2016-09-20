@@ -38,3 +38,14 @@
 
 <hr />
 
+<div class="row">
+  <div class="col-sm-2">  
+    <button ng-click="IRRecord.getConfig()" class="btn btn-block btn-default">Get Lirc Config</button>
+    <button ng-click="IRRecord.saveConfig()" class="btn btn-block btn-default">Save Lirc Config</button>
+  </div>
+  <div class="col-sm-8">  
+     <form class="form-horizontal">
+       <textarea ng-model="IRRecord.config" placeholder="Lirc config" rows="20" class="form-control"></textarea>
+    </form>
+  </div>
+</div>

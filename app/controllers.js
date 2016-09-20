@@ -25,6 +25,7 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
 
       $scope.IRRecord = {
         status: "",
+        config: "",
 
         launch: function() {
           IRRecord.launch().then(function(response) {
@@ -89,6 +90,18 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
 
         getLastConfig: function() {
           IRRecord.getLastConfig().then(function(response) {
+            $scope.IRRecord.status = response;
+          })
+        },
+
+        getConfig: function() {
+          IRRecord.getConfig().then(function(response) {
+            $scope.IRRecord.config = response;
+          })
+        },
+
+        saveConfig: function() {
+          IRRecord.saveConfig($scope.IRRecord.config).then(function(response) {
             $scope.IRRecord.status = response;
           })
         },
@@ -264,6 +277,120 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
         $scope.loading = false;
         $timeout.cancel(timeout1);
         $timeout.cancel(timeout2);
+      }
+    })
+
+    .controller('Wizard2Ctrl', function($scope, $timeout, IRRecord) {
+
+      $scope.step = 0;
+      $scope.pointCount = 0;     
+      $scope.status = "";
+
+      $scope.step2 = function() {
+        $scope.loading = true;
+        IRRecord.stopLircService().then(function() {
+            IRRecord.getNamespace().then(function(response) {
+               $scope.namespace = response;
+               $scope.step = 2;
+               $scope.loading = false;
+            })        
+        });
+      }
+      $scope.showStatus = false;
+      $scope.showOrHideStatus = function() {
+        if ($scope.showStatus === true) {
+          $scope.showStatus = false;
+        } else {
+          $scope.showStatus = true;
+        }
+      }
+
+
+      $scope.step1 = function() {
+        $scope.step = 1;
+      }
+
+      $scope.recordedButtons = {};
+
+      var recordStep = 0;
+      var buttonSignal = "";
+
+      var getStatus = function() {
+        IRRecord.getStatus().then(function(response) {
+          $scope.status = $scope.status + response;
+          if (response !== "[EOF]" && response !== "Error." && response !== "Try again.") {
+            if ($scope.step === 2) {
+              buttonSignal += response;
+              if (recordStep === 0 && response !== "") {                
+                  recordStep = 1;
+              } else if (recordStep === 1 && response === "") {                
+                  recordStep = 2;
+                  $scope.recordingMsg = false;
+                  $scope.keepGettingStatus = false;
+                  $scope.recordedButtons[$scope.selectedNamespace.replace("\r","")] = buttonSignal.split("\n").slice(1).join("     ").replace(/\r/g, "").replace(/pulse/g, "").replace(/space/g, "");
+              }
+            }
+            if ($scope.keepGettingStatus === true) {
+               $timeout(getStatus, 500);
+            }
+          } else {
+            $scope.step = 'error';
+            $scope.keepGettingStatus = false;
+          }
+        })
+      }
+
+      $scope.errorOk = function() { 
+        $scope.discard()
+      }
+
+      $scope.step3 = function() {
+        var indexBegin, indexEnd, key, config;
+        indexBegin = $scope.configTemplate.indexOf("begin raw_codes") + 15;
+        indexEnd = $scope.configTemplate.indexOf("      end raw_codes");
+        config = $scope.configTemplate.substring(0, indexBegin);
+        config += "\n\n";
+        for (key in $scope.recordedButtons) {
+          config += "          name " + key + "\n";
+          config += "             " + $scope.recordedButtons[key];
+          config += "\n\n";
+        }
+        config += "\n";
+        config += $scope.configTemplate.substring(indexEnd, $scope.configTemplate.length);
+        $scope.config = config;
+        $scope.step = 3;
+      }
+
+      $scope.recordButton = function() {
+        IRRecord.mode2().then(function(response) {
+          $scope.keepGettingStatus = true;
+          $scope.recordingMsg = true;
+          recordStep = 0;
+          buttonSignal = "";
+          getStatus();
+        })
+      }
+
+      $scope.save = function() {
+        //$scope.loading = true;
+        $scope.config  = $scope.config.replace("name  tmplircd.conf", "name " + $scope.name)
+        /*
+        IRRecord.saveConfig($scope.config).then(function() {
+          $scope.saved = true;
+          $timeout(function() {
+            $scope.saved = false;
+            $scope.step = 0;
+            $scope.loading = false;
+          }, 2000);
+        })*/
+
+      }
+
+      $scope.discard = function() {
+        $scope.status = "";
+        $scope.pointCount = 0;
+        $scope.step = 0;
+        $scope.loading = false;
       }
     })
 
