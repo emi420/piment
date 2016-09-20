@@ -139,6 +139,16 @@
             return deferred.promise;    
           },
 
+          getConfig: function() {
+            var deferred = $q.defer();
+            $http.get(SETTINGS.host + '/api/get-config/').then(function(r) {
+              deferred.resolve(r.data);
+            }, function(r) {
+              deferred.resolve("Error.");
+            });
+            return deferred.promise;    
+          },
+
           getUIConfig: function() {
             var deferred = $q.defer();
             $http.get(SETTINGS.host + '/api/get-ui-config/').then(function(r) {
