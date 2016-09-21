@@ -44,7 +44,6 @@ while True:
 				if chunk:
 					chunks.append(chunk)
 				for chunk in chunks:
-					print chunk
 					client_sock.send(chunk)
 					print str(len(chunk)) + " bytes sent."
 
