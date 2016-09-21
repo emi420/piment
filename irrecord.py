@@ -101,12 +101,14 @@ class IRRecord(object):
             return 'Stop irrecord first. \n'
 
     def send_once(self, remotename, codename):
-        if not self.launched:
-            self.launched = True
-            self.process = pexpect.spawn('irsend SEND_ONCE ' + remotename + ' ' + codename)
-            return ''
-        else:
-            return 'Stop irrecord first. \n'
+        p = pexpect.spawn('irsend SEND_ONCE ' + remotename + ' ' + codename)
+        while True:
+            out = p.readline()
+            if out == '' and p.eof() is not None:
+                break
+            if out:
+                content = content + out
+        return content
 
     def send(self, command):
         self.process.sendline(command)
