@@ -38,7 +38,7 @@
               controller: 'RemotesCtrl'
            }).
            otherwise({
-              redirectTo: '/wizard'
+              redirectTo: '/remotes'
            });
      }])
 
