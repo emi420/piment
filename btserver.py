@@ -46,7 +46,6 @@ while True:
 				for chunk in chunks:
 					client_sock.send(chunk)
 					print str(len(chunk)) + " bytes sent."
-					print "\n\n" + chunk								
 
 	except IOError:
 		pass
