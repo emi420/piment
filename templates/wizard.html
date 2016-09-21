@@ -58,8 +58,8 @@
         <span ng-repeat="i in getNumber(pointCount) track by $index" class="status-point"></span>
         <div ng-show="timeout">
           <hr />
-          <p><strong>Ha pasado demasiado tiempo</strong> por favor vuelve a intentarlo.</p>
-          <button ng-disabled="loading" ng-click="discard()" class="btn btn-lg btn-default">
+          <p><strong>¿Ha pasado demasiado tiempo?</strong> podés volver a intentarlo.</p>
+          <button ng-disabled="loading" ng-click="discard()" class="btn btn-default">
             &nbsp; Reintentar &nbsp;
           </button>
         </div>

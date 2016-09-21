@@ -1,0 +1,36 @@
+
+<div class="row">
+  <div class="col-sm-2">  
+  </div>
+  <div class="col-sm-8 text-center"> 
+    <h2>Control Remoto</h2>
+
+      <hr />
+
+      <div ng-hide="remotes" class="jumbotron">
+          <h3>Cargando ...</h3>
+      </div>
+
+      <ul class="list-group">
+        <a ng-show="(remote.published !== false)" ng-repeat="remote in remotes" class="list-group-item" ng-class="{'active': (remote.id === selectedRemoteId)}" ng-click="showRemote(remote)">
+          <h5>{{ remote.name }}</h5>
+        </a>
+      </ul>
+
+      <div ng-show="remote" class="remote">
+        <!-- <input class="form-control input-lg" type="text" ng-model="remote.name"> -->
+
+        <div ng-repeat="code in remote.uicodes" class="col-xs-4 col-btn">
+          <button ng-click="sendCommand(code)" class="btn btn-sm btn-block btn-default btn-{{ code.color }}">
+            <i ng-show="code.icon" class="icon {{ code.icon }}"></i><br  ng-show="code.icon" />
+            <span ng-show="(code.icon || code.text.length > 3)">{{ code.text }}</span>
+            <span ng-show="(!code.icon && code.text.length < 4)"><h3>{{ code.text }}</h3></span>
+          </button> 
+        </div> 
+
+      </div>
+
+  </div>
+  <div class="col-sm-2">  
+  </div>
+</div>

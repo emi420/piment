@@ -33,6 +33,10 @@
               templateUrl: 'templates/admin.html',
               controller: 'AdminCtrl'
            }).
+           when('/remotes', {
+              templateUrl: 'templates/remotes.html',
+              controller: 'RemotesCtrl'
+           }).
            otherwise({
               redirectTo: '/wizard'
            });

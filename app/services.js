@@ -68,6 +68,15 @@
             });
             return deferred.promise; 
           },
+          sendCommand: function(controlname, codename) {
+            var deferred = $q.defer();
+            $http.get(SETTINGS.host + '/api/lirc/send/' + [controlname, codename].join(",") ).then(function(r) {
+              deferred.resolve(r.data);
+            }, function(r) {
+              deferred.resolve("Error.");
+            });
+            return deferred.promise; 
+          },
 
           sendNamespace: function(namespace) {
             var deferred = $q.defer();

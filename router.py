@@ -12,7 +12,6 @@
  
 '''
 from irrecord import IRRecord
-from lirc import Lirc
 from relay import Relay
 from os import path as ospath
 
@@ -22,12 +21,10 @@ Router routes addresses to actions
 class Router(object):
 
     irrecord = None
-    lirc = None
     relay = None
 
     def __init__(self):
         self.irrecord = IRRecord()
-        self.lirc = Lirc()
         self.relay = Relay()
 
     def post(self, path, data):
@@ -71,7 +68,7 @@ class Router(object):
                 split_path = path.split('/')
                 send = split_path[len(split_path)-1]
                 cmd = send.split(',')
-                self.lirc.send_once(cmd[0], cmd[1])
+                self.irrecord.send_once(cmd[0], cmd[1])
                 response = "Command sent."
             elif path.startswith("/api/irrecord/"):
 
