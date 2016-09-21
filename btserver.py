@@ -33,7 +33,7 @@ while True:
 			url = data.replace('\00','')
 			response = router.get(url)
 
-			if response != "":
+			if response != "" and len(response) > 50:
 				response = "[data-start]" + response + "[data-end]"
 				chunks_count = len(response)/1024
 				chunks = []
@@ -44,6 +44,7 @@ while True:
 				if chunk:
 					chunks.append(chunk)
 				for chunk in chunks:
+					print chunk
 					client_sock.send(chunk)
 					print str(len(chunk)) + " bytes sent."
 
