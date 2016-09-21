@@ -34,8 +34,12 @@ while True:
 			response = router.get(url)
 
 			if response != "":
-				client_sock.send("[data-start]" + response + "[data-end]")
-				print str(len(response)) + " bytes sent."								
+				response = "[data-start]" + response + "[data-end]"
+				chunks_count = len(response)/1024
+				for i in range(0:chunks_count)
+					chunk = response[i*1024:1024]
+					client_sock.send(chunk)
+					print str(len(chunk)) + " bytes sent."								
 
 	except IOError:
 		pass
