@@ -36,10 +36,17 @@ while True:
 			if response != "":
 				response = "[data-start]" + response + "[data-end]"
 				chunks_count = len(response)/1024
+				chunks = []
 				for i in range(0,chunks_count):
 					chunk = response[i*1024:1024+(i*1024)]
+					chunks.append(chunk)
+				chunk = response[chunks_count*1024:]
+				if chunk:
+					chunks.append(chunk)
+				for chunk in chunks:
 					client_sock.send(chunk)
-					print str(len(chunk)) + " bytes sent."								
+					print str(len(chunk)) + " bytes sent."
+					print "\n\n" + chunk								
 
 	except IOError:
 		pass
