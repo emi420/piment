@@ -17,7 +17,7 @@ class BTPair(object):
 
     waiting = False
 
-	def __init__(self):
+    def __init__(self):
 		waiting = False
 
     def wait(self):
