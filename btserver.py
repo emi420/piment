@@ -33,32 +33,31 @@ class BTServer(object):
 			print "Piment Bluetooth Server"
 			print "Waiting for connection on RFCOMM channel %d" % self.server_sock.getsockname()[1]
 
-			try:
-				client_sock, client_info = self.server_sock.accept()
-				print "Accepted connection from ", client_info
+			client_sock, client_info = self.server_sock.accept()
+			print "Accepted connection from ", client_info
 
-				while True:          
-					data = client_sock.recv(1024)
-					if len(data) == 0: break
-					
-					print "received [%s]" % data
+			while True:          
+				data = client_sock.recv(1024)
+				if len(data) == 0: break
 
-					url = data.replace('\00','')
-					response = router.get(url)
+				print "received [%s]" % data
 
-					if response != "" and len(response) > 50:
-						response = "[data-start]" + response + "[data-end]"
-						chunks_count = len(response)/1024
-						chunks = []
-						for i in range(0,chunks_count):
-							chunk = response[i*1024:1024+(i*1024)]
-							chunks.append(chunk)
-						chunk = response[chunks_count*1024:]
-						if chunk:
-							chunks.append(chunk)
-						for chunk in chunks:
-							client_sock.send(chunk)
-							print str(len(chunk)) + " bytes sent."
+				url = data.replace('\00','')
+				response = self.router.get(url)
+
+				if response != "" and len(response) > 50:
+					response = "[data-start]" + response + "[data-end]"
+					chunks_count = len(response)/1024
+					chunks = []
+					for i in range(0,chunks_count):
+						chunk = response[i*1024:1024+(i*1024)]
+						chunks.append(chunk)
+					chunk = response[chunks_count*1024:]
+					if chunk:
+						chunks.append(chunk)
+					for chunk in chunks:
+						client_sock.send(chunk)
+						print str(len(chunk)) + " bytes sent."
 
 	def stop(self):
 		print "Stopping..."
