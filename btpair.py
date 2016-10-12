@@ -31,7 +31,7 @@ class BTPair(object):
     	self.p.sendline("discoverable on")
     	self.p.sendline("scan on")
     	print "Waiting request..."
-    	self.p.expect('Confirm passkey')
+    	self.p.expect('Confirm passkey', timeout=120)
     	print "Request confirmation"
     	self.p.sendline("yes")
     	self.p.expect('Paired: yes')
