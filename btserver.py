@@ -20,6 +20,7 @@ class BTServer(object):
 		self.router = router
 
 	def listen(self):
+		print "Piment Bluetooth Server"
 		self.server_sock=BluetoothSocket( RFCOMM )
 		self.server_sock.bind(("",PORT_ANY))
 		self.server_sock.listen(1)
@@ -30,7 +31,6 @@ class BTServer(object):
 		                   profiles = [ SERIAL_PORT_PROFILE ] )
 
 		while True:          
-			print "Piment Bluetooth Server"
 			print "Waiting for connection on RFCOMM channel %d" % self.server_sock.getsockname()[1]
 
 			client_sock, client_info = self.server_sock.accept()
