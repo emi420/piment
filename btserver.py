@@ -11,6 +11,7 @@
 '''
 
 from bluetooth import *
+import threading
 
 class BTServer(object):
 
@@ -20,6 +21,11 @@ class BTServer(object):
 		self.router = router
 
 	def listen(self):
+		thread = threading.Thread(target=self._listen, args=())
+        thread.daemon = True                            
+		thread.start() 
+
+	def _listen(self):
 		print "Piment Bluetooth Server"
 		self.server_sock=BluetoothSocket( RFCOMM )
 		self.server_sock.bind(("",PORT_ANY))
