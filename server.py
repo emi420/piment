@@ -105,6 +105,7 @@ class main:
         self.router = Router()
         self.server = http_server(self.router)
         selt.btserver = BTServer(self.router)
+        self.btserver.listen()
 
 if __name__ == '__main__':
     m = main()
