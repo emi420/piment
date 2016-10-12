@@ -26,8 +26,8 @@ class BTServer(object):
 		self.server_sock.listen(1)
 
 		advertise_service( self.server_sock, "Piment",
-		                   service_id = _UUID,
-		                   service_classes = [ _UUID, SERIAL_PORT_CLASS ],
+		                   service_id = self._UUID,
+		                   service_classes = [ self._UUID, SERIAL_PORT_CLASS ],
 		                   profiles = [ SERIAL_PORT_PROFILE ] )
 
 		while True:          
