@@ -104,7 +104,7 @@ class main:
     def __init__(self):
         self.router = Router()
 
-        selt.btserver = BTServer(self.router)
+        self.btserver = BTServer(self.router)
         self.btserver.listen()
 
         self.server = http_server(self.router)
