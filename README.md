@@ -1,14 +1,12 @@
-# LIRC and Relay Server
+# Piment - Home automation
 
-## Manage LIRC and Relay from web
+## Manage IR and GPIO from web and bluetooth
 
 ### Install and run
 
 * Install requirements 'pip install -r reqs.txt'
-* Run 'python webserver.py'
+* Run 'python piment-server.py'
 * Open 'http://SERVER:80/'
-
-![Screenshot](https://raw.githubusercontent.com/emi420/lirc-web-admin/master/screenshot.png)
 
 ### License
 

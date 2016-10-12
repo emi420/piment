@@ -4,31 +4,39 @@
 ''' 
  BTPair - Bluetooth pairing
 
- You may use any Web Server Admin project under the terms
+ You may use any Piment project under the terms
  of the GNU General Public License (GPL) Version 3.
 
  (c) 2016 Emilio Mariscal (emi420 [at] gmail.com)
- 
  
 '''
 
 import pexpect
 
-class main:
-    def __init__(self):
-    	p = pexpect.spawn('bluetoothctl')
-    	p.sendline("power on")
-    	p.sendline("agent on")
-    	p.sendline("default-agent")
-    	p.sendline("discoverable on")
-    	p.sendline("scan on")
+class BTPair(object):
+
+    waiting = False
+
+	def __init__(self):
+		waiting = False
+
+    def wait(self):
+    	self.waiting = True
+    	self.p = pexpect.spawn('bluetoothctl')
+    	self.p.sendline("power on")
+    	self.p.sendline("agent on")
+    	self.p.sendline("default-agent")
+    	self.p.sendline("discoverable on")
+    	self.p.sendline("scan on")
     	print "Waiting request..."
-    	p.expect('Confirm passkey')
-    	print "Request confirmation"
-    	p.sendline("yes")
-    	p.expect('Connected: yes')
+    	self.p.expect('Confirm passkey')
+    	self.print "Request confirmation"
+    	self.p.sendline("yes")
+    	self.p.expect('Connected: yes')
     	print "Connected"
+        return "Connected"
 
-
-if __name__ == '__main__':
-    m = main()
+	def stop(self):
+		self.p.kill(0)
+		self.waiting = False
+		return "Stopped"

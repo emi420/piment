@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 
 ''' 
- Relay - API for Relay Control 
+ Piment GPIO - API for GPIO  
 
- You may use any Relay project under the terms
+ You may use any Piment project under the terms
  of the GNU General Public License (GPL) Version 3.
 
  (c) 2016 Emilio Mariscal (emi420 [at] gmail.com)

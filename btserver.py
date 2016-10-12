@@ -1,3 +1,14 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+''' 
+ Bluetooth Server   
+
+ You may use any Piment project under the terms
+ of the GNU General Public License (GPL) Version 3.
+
+ (c) 2016 Emilio Mariscal (emi420 [at] gmail.com)
+'''
 
 from bluetooth import *
 from router import Router
@@ -18,6 +29,7 @@ advertise_service( server_sock, "BTServer",
                     )
 
 while True:          
+	print "Bluetooth Server"
 	print "Waiting for connection on RFCOMM channel %d" % port
 
 	try:

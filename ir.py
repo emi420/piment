@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 
 ''' 
- IRRecord - API for LIRC IRRecord 
+ Piment IR - API for IR 
 
- You may use any Web Server Admin project under the terms
+ You may use any Piment project under the terms
  of the GNU General Public License (GPL) Version 3.
 
  (c) 2016 Emilio Mariscal (emi420 [at] gmail.com)
@@ -16,8 +16,7 @@ import pexpect
 import subprocess, signal
 from os import remove, path, kill
 
-
-class IRRecord(object):
+class IR(object):
 
     _TMP_CFG_FILE = 'tmplircd.conf'
     _LIRCD_CFG_FILE = '/etc/lirc/lircd.conf'

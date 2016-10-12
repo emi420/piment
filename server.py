@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 
 ''' 
- LIRC and Relay Server - a server for LIRC and Relay administration 
+Piment Server - a server for IR and GPIO administration 
 
- You may use any LIRC and Relay Server Admin project under the terms
+ You may use any Piment project under the terms
  of the GNU General Public License (GPL) Version 3.
 
  (c) 2016 Emilio Mariscal (emi420 [at] gmail.com)
@@ -96,7 +96,7 @@ class http_server:
             WebServer.router = Router()
 
             server = HTTPServer(('', 80), WebServer)
-            print 'Started LIRC Web Server on port 80' 
+            print 'Started Piment Server on port 80' 
             server.serve_forever()
         except KeyboardInterrupt:
             print '^C received, shutting down server'
