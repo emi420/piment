@@ -14,6 +14,7 @@ Piment Server - a server for IR and GPIO administration
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 from os import curdir, sep
 from router import Router
+from btserver import BTServer
 
 '''
 WebServer create a simple web server
@@ -30,19 +31,16 @@ class WebServer(BaseHTTPRequestHandler):
             return "text/javascript"
         elif self.path.endswith(".css"):           
             return "text/css"
-        elif self.path.endswith(".html"):           
-            return "text/html"
-
         elif self.path.endswith(".ttf"):           
             return "application/x-font-truetype"
         elif self.path.endswith(".otf"):           
             return "application/x-font-opentype"
-        elif self.path.endswith(".woff"):           
+        elif self.path.endswith(".woff") or self.path.endswith(".woff2"):           
             return "application/font-woff"
-        elif self.path.endswith("/"):           
-            return "text/html"
+        elif self.path.endswith(".svg") or self.path.endswith(".eot"):           
+            return "application/octet-stream"
         else:           
-            return "application/octet-stream"        
+            return "text/html"
 
     def do_OPTIONS(self):
         self.send_response(200)
@@ -106,6 +104,7 @@ class main:
     def __init__(self):
         self.router = Router()
         self.server = http_server(self.router)
+        selt.btserver = BTServer(self.router)
 
 if __name__ == '__main__':
     m = main()
