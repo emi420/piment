@@ -30,7 +30,7 @@ class BTPair(object):
     	self.p.sendline("scan on")
     	print "Waiting request..."
     	self.p.expect('Confirm passkey')
-    	self.print "Request confirmation"
+    	print "Request confirmation"
     	self.p.sendline("yes")
     	self.p.expect('Connected: yes')
     	print "Connected"
