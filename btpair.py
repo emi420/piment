@@ -19,7 +19,7 @@ class BTPair(object):
     _DEVICE_NAME = "Piment"
 
     def __init__(self):
-		waiting = False
+        waiting = False
         pexpect.spawn('hciconfig hci0 name ' + _DEVICE_NAME)
 
     def wait(self):
