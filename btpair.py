@@ -20,7 +20,7 @@ class BTPair(object):
 
     def __init__(self):
         waiting = False
-        pexpect.spawn('hciconfig hci0 name ' + _DEVICE_NAME)
+        pexpect.spawn('hciconfig hci0 name ' + self._DEVICE_NAME)
 
     def wait(self):
     	self.waiting = True
