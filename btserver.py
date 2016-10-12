@@ -22,8 +22,8 @@ class BTServer(object):
 
 	def listen(self):
 		thread = threading.Thread(target=self._listen, args=())
-        thread.daemon = True                            
-		thread.start()  
+		thread.daemon = True                            
+		thread.start() 
 
 	def _listen(self):
 		print "Piment Bluetooth Server"
