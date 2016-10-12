@@ -16,9 +16,11 @@ import pexpect
 class BTPair(object):
 
     waiting = False
+    _DEVICE_NAME = "Piment"
 
     def __init__(self):
 		waiting = False
+        pexpect.spawn('hciconfig hci0 name ' + _DEVICE_NAME)
 
     def wait(self):
     	self.waiting = True
@@ -32,9 +34,9 @@ class BTPair(object):
     	self.p.expect('Confirm passkey')
     	print "Request confirmation"
     	self.p.sendline("yes")
-    	self.p.expect('Connected: yes')
-    	print "Connected"
-        return "Connected"
+    	self.p.expect('Paired: yes')
+    	print "Paired"
+        return "Paired"
 
 	def stop(self):
 		self.p.kill(0)
