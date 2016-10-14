@@ -90,11 +90,10 @@ class Router(object):
 
             elif path.startswith("/api/config/wifi/get/"):
                 p = pexpect.spawn('iwgetid')
-                data = urllib.unquote(path.replace('/api/config/wifi/set/','')).split(":")
-
+                response = p.readline()
 
             elif path.startswith("/api/config/wifi/set/"):
-                path.replace("/api/config/wifi/set/","")
+                data = urllib.unquote(path.replace('/api/config/wifi/set/','')).split(":")
                 with open("/etc/wpa_supplicant/wpa_supplicant.conf", "w") as f:
                     f.write("country=GB \n")
                     f.write("ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev \n")
