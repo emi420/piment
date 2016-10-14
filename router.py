@@ -92,6 +92,9 @@ class Router(object):
                 response = p.readline().replace('wlan0     ESSID:"','').replace('"','')
 
 
+            elif path.startswith("/api/config/wifi/set/"):
+                import pdb;pdb.set_trace();
+
             elif path == "/api/get-ui-config/":
                 if ospath.isfile("remotes-ui.json"):
                     content = ""
