@@ -15,6 +15,8 @@ from ir import IR
 from relay import Relay
 from btpair import BTPair
 from os import path as ospath
+import pexpect
+import re
 
 '''
 Router routes addresses to actions
@@ -61,6 +63,22 @@ class Router(object):
                 response = self.btpair.wait()
             elif path.startswith("/api/bluetooth/stop/"):
                 response = self.btpair.stop()
+
+            elif path.startswith("/api/config/wifi/scan/"):
+                content = ""
+                p = pexpect.spawn('iwlist wlan0 scan')
+                while True:
+                    out = p.readline()
+                    if out == '' and p.eof() is not None:
+                        break
+                    if out:
+                        content = content + out
+
+                res = re.findall("ESSID.*$",content,re.MULTILINE)
+                for r in res:
+                    r = r.replace('ESSID:"','').replace('"\r','') 
+
+                print res
 
             elif path == "/api/get-ui-config/":
                 if ospath.isfile("remotes-ui.json"):
