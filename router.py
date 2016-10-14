@@ -80,7 +80,7 @@ class Router(object):
                 find_networks = re.findall("ESSID.*$",content,re.MULTILINE)
                 find_levels = re.findall("Signal level.*$",content,re.MULTILINE)
                 index = 0;
-                for item in find:
+                for item in find_networks:
                     networks.append(item.replace('ESSID:"','').replace('"\r','') + ':' + find_levels[index].replace("Signal level=","").replace(" dBm  \r",""))
                     index+=1
 
