@@ -66,6 +66,7 @@ class Router(object):
 
             elif path.startswith("/api/config/wifi/scan/"):
                 content = ""
+                res = []
                 p = pexpect.spawn('iwlist wlan0 scan')
                 while True:
                     out = p.readline()
@@ -74,11 +75,11 @@ class Router(object):
                     if out:
                         content = content + out
 
-                res = re.findall("ESSID.*$",content,re.MULTILINE)
-                for r in res:
-                    r = r.replace('ESSID:"','').replace('"\r','') 
+                find = re.findall("ESSID.*$",content,re.MULTILINE)
+                for item in find:
+                    response.append(item.replace('ESSID:"','').replace('"\r','') )
 
-                print res
+                response = res
 
             elif path == "/api/get-ui-config/":
                 if ospath.isfile("remotes-ui.json"):
