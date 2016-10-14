@@ -66,7 +66,9 @@ class Router(object):
 
             elif path.startswith("/api/config/wifi/scan/"):
                 content = ""
-                res = []
+                res = {}
+                res["networks"] = []
+                
                 p = pexpect.spawn('iwlist wlan0 scan')
                 while True:
                     out = p.readline()
@@ -77,7 +79,7 @@ class Router(object):
 
                 find = re.findall("ESSID.*$",content,re.MULTILINE)
                 for item in find:
-                    res.append(item.replace('ESSID:"','').replace('"\r','') )
+                    res["networks"].append(item.replace('ESSID:"','').replace('"\r','') )
 
                 response = res
 
