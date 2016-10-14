@@ -82,7 +82,7 @@ class Router(object):
                 index = 0;
                 for item in find:
                     networks.append(item.replace('ESSID:"','').replace('"\r','') + ':' + find_levels[index].replace("Signal level=","").replace(" dBm  \r",""))
-                    index++
+                    index+=1
 
                 response = string.join(networks,",")
 
