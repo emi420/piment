@@ -41,28 +41,31 @@ class BTServer(object):
 			client_sock, client_info = self.server_sock.accept()
 			print "Accepted connection from ", client_info
 
-			while True:          
-				data = client_sock.recv(1024)
-				if len(data) == 0: break
+			while True:
+				try:          
+					data = client_sock.recv(1024)
+					if len(data) == 0: break
 
-				print "received [%s]" % data
+					print "received [%s]" % data
 
-				url = data.replace('\00','')
-				response = self.router.get(url)
+					url = data.replace('\00','')
+					response = self.router.get(url)
 
-				if response != "" and len(response) > 50:
-					response = "[data-start]" + response + "[data-end]"
-					chunks_count = len(response)/1024
-					chunks = []
-					for i in range(0,chunks_count):
-						chunk = response[i*1024:1024+(i*1024)]
-						chunks.append(chunk)
-					chunk = response[chunks_count*1024:]
-					if chunk:
-						chunks.append(chunk)
-					for chunk in chunks:
-						client_sock.send(chunk)
-						print str(len(chunk)) + " bytes sent."
+					if response != "" and len(response) > 50:
+						response = "[data-start]" + response + "[data-end]"
+						chunks_count = len(response)/1024
+						chunks = []
+						for i in range(0,chunks_count):
+							chunk = response[i*1024:1024+(i*1024)]
+							chunks.append(chunk)
+						chunk = response[chunks_count*1024:]
+						if chunk:
+							chunks.append(chunk)
+						for chunk in chunks:
+							client_sock.send(chunk)
+							print str(len(chunk)) + " bytes sent."
+				except:
+					print "Connection closed"
 
 	def stop(self):
 		print "Stopping..."
