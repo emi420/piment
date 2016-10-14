@@ -18,6 +18,7 @@ from os import path as ospath
 import pexpect
 import re
 import string
+import urllib 
 
 '''
 Router routes addresses to actions
@@ -89,11 +90,32 @@ class Router(object):
 
             elif path.startswith("/api/config/wifi/get/"):
                 p = pexpect.spawn('iwgetid')
-                response = p.readline().replace('wlan0     ESSID:"','').replace('"','')
+                data = urllib.unquote(path.replace('/api/config/wifi/set/','')).split(":")
 
 
             elif path.startswith("/api/config/wifi/set/"):
-                import pdb;pdb.set_trace();
+                path.replace("/api/config/wifi/set/","")
+                with open("/etc/wpa_supplicant/wpa_supplicant.conf", "w") as f:
+                    f.write("country=GB \n")
+                    f.write("ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev \n")
+                    f.write("update_config=1 \n")
+                    f.write("network={ \n")
+                    f.write("ssid=\"" + data[0] + "\" \n")
+                    f.write("psk=\"" + data[1] + "\" \n")
+                    f.write("proto=RSN \n")
+                    f.write("key_mgmt=WPA-PSK \n")
+                    f.write("pairwise=CCMP \n")
+                    f.write("auth_alg=OPEN \n")
+                    f.write("} \n")
+
+                    f.close()
+
+                p = pexpect.spawn('ifdown wlan0')
+                p.readline()
+                p = pexpect.spawn('ifup wlan0')
+                p.readline()
+
+                response = "Connected."
 
             elif path == "/api/get-ui-config/":
                 if ospath.isfile("remotes-ui.json"):
