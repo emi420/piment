@@ -77,11 +77,20 @@ class Router(object):
                     if out:
                         content = content + out
 
-                find = re.findall("ESSID.*$",content,re.MULTILINE)
+                find_networks = re.findall("ESSID.*$",content,re.MULTILINE)
+                find_levels = re.findall("Signal level.*$",content,re.MULTILINE)
+                index = 0;
                 for item in find:
-                    networks.append(item.replace('ESSID:"','').replace('"\r','') )
+                    networks.append(item.replace('ESSID:"','').replace('"\r','') + ':' + find_levels[index].replace("Signal level=","").replace(" dBm  \r",""))
+                    index++
 
                 response = string.join(networks,",")
+
+
+            elif path.startswith("/api/config/wifi/get/"):
+                p = pexpect.spawn('iwgetid')
+                response = p.readline().replace('wlan0     ESSID:"','').replace('"','')
+
 
             elif path == "/api/get-ui-config/":
                 if ospath.isfile("remotes-ui.json"):
