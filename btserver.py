@@ -66,6 +66,7 @@ class BTServer(object):
 							print str(len(chunk)) + " bytes sent."
 				except:
 					print "Connection closed"
+					break
 
 	def stop(self):
 		print "Stopping..."
