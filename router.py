@@ -77,7 +77,7 @@ class Router(object):
 
                 find = re.findall("ESSID.*$",content,re.MULTILINE)
                 for item in find:
-                    response.append(item.replace('ESSID:"','').replace('"\r','') )
+                    res.append(item.replace('ESSID:"','').replace('"\r','') )
 
                 response = res
 
