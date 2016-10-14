@@ -85,8 +85,7 @@ class WebServer(BaseHTTPRequestHandler):
             return self.wfile.write(response)
 
         except IOError:
-            pass
-            #self.send_error(404,'File Not Found: %s' % self.path)        
+            self.send_error(404,'File Not Found: %s' % self.path)        
 
 class http_server:
     def __init__(self, router):
@@ -94,7 +93,7 @@ class http_server:
             WebServer.router = Router()
 
             server = HTTPServer(('', 80), WebServer)
-            print 'Started Piment Server on port 80' 
+            print 'Started Piment Web Server on port 80' 
             server.serve_forever()
         except KeyboardInterrupt:
             print '^C received, shutting down server'

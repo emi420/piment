@@ -34,7 +34,10 @@ class BTPair(object):
     	self.p.expect('Confirm passkey', timeout=120)
     	print "Request confirmation"
     	self.p.sendline("yes")
-    	self.p.expect('Paired: yes')
+        try:
+        	self.p.expect('Paired: yes')
+        except(e):
+            pass
     	print "Paired"
         return "Paired"
 
