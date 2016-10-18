@@ -49,9 +49,9 @@ class BTServer(object):
 					print "received [%s]" % data
 
 					url = data.replace('\00','')
-					response = self.router.get(url)
+					response = "[url:" + url + "] " + self.router.get(url);
 
-					if response != "" and len(response) > 50:
+					if len(response) > 50:
 						response = "[data-start]" + response + "[data-end]"
 						chunks_count = len(response)/1024
 						chunks = []
@@ -64,6 +64,8 @@ class BTServer(object):
 						for chunk in chunks:
 							client_sock.send(chunk)
 							print str(len(chunk)) + " bytes sent."
+					else:
+						client_sock.send(response)
 				except:
 					print "Connection closed"
 					break
