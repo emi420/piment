@@ -53,12 +53,13 @@ class BTServer(object):
 
 					if len(response) > 50:
 						response = "[data-start]" + response + "[data-end]"
-						chunks_count = (len(response) + len(response)/1024 * len("[url:" + url + "] "))/1024
+						chunk_size = 1024 - len("[url:" + url + "] ")
+						chunks_count = len(response)/chunk_size
 						chunks = []
 						for i in range(0,chunks_count):
-							chunk = ("[url:" + url + "] " + response)[i*1024:1024+(i*1024)]
+							chunk = "[url:" + url + "] " + response[i*chunk_size:chunk_size+(i*chunk_size)]
 							chunks.append(chunk)
-						chunk = "[url:" + url + "] " + response[chunks_count*1024:]
+						chunk = "[url:" + url + "] " + response[chunks_count*chunk_size:]
 						if chunk:
 							chunks.append(chunk)
 						for chunk in chunks:
