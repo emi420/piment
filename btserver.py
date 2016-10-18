@@ -54,13 +54,11 @@ class BTServer(object):
 					if len(response) > 50:
 						response = "[data-start]" + response + "[data-end]"
 						chunks_count = (len(response) + len(response)/1024 * len("[url:" + url + "] "))/1024
-						import pdb;pdb.set_trace();
 						chunks = []
 						for i in range(0,chunks_count):
 							chunk = ("[url:" + url + "] " + response)[i*1024:1024+(i*1024)]
-							print chunk
 							chunks.append(chunk)
-						chunk = response[chunks_count*1024:]
+						chunk = "[url:" + url + "] " + response[chunks_count*1024:]
 						if chunk:
 							chunks.append(chunk)
 						for chunk in chunks:
