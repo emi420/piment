@@ -52,11 +52,11 @@ class BTServer(object):
 					response = self.router.get(url);
 
 					if len(response) > 50:
-						response = "[url:" + url + "] [data-start]" + response + "[data-end]"
+						response = "[data-start]" + response + "[data-end]"
 						chunks_count = len(response)/1024
 						chunks = []
 						for i in range(0,chunks_count):
-							chunk = response[i*1024:1024+(i*1024)]
+							chunk = "[url:" + url + "] " + response[i*1024:1024+(i*1024)]
 							chunks.append(chunk)
 						chunk = response[chunks_count*1024:]
 						if chunk:
