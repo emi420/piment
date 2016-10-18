@@ -91,6 +91,8 @@ class Router(object):
             elif path.startswith("/api/config/wifi/get/"):
                 p = pexpect.spawn('iwgetid')
                 response = p.readline().replace('wlan0     ESSID:"',"").replace('"','').replace('\r','').replace('\n','')
+                p = pexpect.spawn('hostname -I')
+                response += "," + p.readline()
 
             elif path.startswith("/api/config/wifi/set/"):
                 data = urllib.unquote(path.replace('/api/config/wifi/set/','')).split(":")
