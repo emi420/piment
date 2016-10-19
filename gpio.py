@@ -37,7 +37,6 @@ class Relay(object):
         GPIO.setmode(GPIO.BOARD)
         GPIO.setup(PIN_READY,GPIO.OUT)
 
-        GPIO.setup(PIN_RELAY,GPIO.OUT)
         for pin in PIN_RELAY:
             GPIO.setup(PIN_RELAY[pin],GPIO.OUT)
 
