@@ -33,6 +33,9 @@ class Router(object):
         self.relay = Relay()
         self.btpair = BTPair()
 
+    def stop(self):
+        self.relay.stop()
+
     def post(self, path, data):
         """Respond to a POST request."""
         if path == "/api/ir/save-ui-config/":

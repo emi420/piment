@@ -98,6 +98,7 @@ class http_server:
         except KeyboardInterrupt:
             print '^C received, shutting down server'
             server.socket.close()
+            server.router.stop()
 
 class main:
     def __init__(self):

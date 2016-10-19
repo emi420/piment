@@ -15,31 +15,41 @@ import RPi.GPIO as GPIO
 PIN_READY = 40
 
 PIN_RELAY = {
-    "1": 38,
-    "2": 36,
-    "3": 32,
-    "4": 26,
-    "5": 24,
-    "6": 22,
-    "7": 18,
-    "8": 15,
+    "2.1": 37,
+    "2.2": 35,
+    "3.1": 33,
+    "3.2": 31,
+    "4.1": 40,
+    "4.2": 38,
+    "5.1": 36,
+    "5.2": 32,
+    "6.1": 26,
+    "6.2": 24,
+    "7.1": 18,
+    "7.2": 29,
+    "8.1": 10,
+    "8.2": 8,
 }
+
 class Relay(object):
 
     def __init__(self):
-        #GPIO.setmode(GPIO.BOARD)
-        #GPIO.setup(PIN_READY,GPIO.OUT)
-        #GPIO.setup(PIN_RELAY,GPIO.OUT)
-        #GPIO.output(PIN_RELAY,True)
-        #GPIO.output(PIN_READY,True)
+        GPIO.setmode(GPIO.BOARD)
+        GPIO.setup(PIN_READY,GPIO.OUT)
+
+        GPIO.setup(PIN_RELAY,GPIO.OUT)
+        for pin in PIN_RELAY:
+            GPIO.setup(PIN_RELAY[pin],GPIO.OUT)
+
+        GPIO.output(PIN_READY,True)
 
     def stop(self):
-        #GPIO.cleanup() 
+        GPIO.cleanup() 
 
     def on(self, pin):
-        #if pin:
-        #    GPIO.output(PIN_RELAY[pin],False)
+        if pin:
+            GPIO.output(PIN_RELAY[pin],False)
 
     def off(self, pin):
-        #if pin:
-        #    GPIO.output(PIN_RELAY[pin],True)
+        if pin:
+            GPIO.output(PIN_RELAY[pin],True)
