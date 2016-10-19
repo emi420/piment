@@ -12,7 +12,7 @@ Piment Router - a router for IR and GPIO
  
 '''
 from ir import IR
-from relay import Relay
+from gpio import Relay
 from btpair import BTPair
 from os import path as ospath
 import pexpect
