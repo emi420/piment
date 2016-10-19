@@ -47,11 +47,18 @@ class Relay(object):
         GPIO.cleanup() 
 
     def on(self, pin):
+        print pin + " ON"
         if pin:
             GPIO.output(PIN_RELAY[pin],False)
             return "Relay " + pin + " ON."
+        return "No pin provided."
+
 
     def off(self, pin):
+        print pin + " OFF"
         if pin:
             GPIO.output(PIN_RELAY[pin],True)
             return "Relay " + pin + " OFF."
+        return "No pin provided."
+
+
