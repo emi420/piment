@@ -12,8 +12,6 @@
 
 import RPi.GPIO as GPIO
 
-PIN_READY = 40
-
 PIN_RELAY = {
     "2.1": 37,
     "2.2": 35,
@@ -29,18 +27,16 @@ PIN_RELAY = {
     "7.2": 13,
     "8.1": 10,
     "8.2": 8,
+    "st": 22,
 }
 
 class Relay(object):
 
     def __init__(self):
         GPIO.setmode(GPIO.BOARD)
-        GPIO.setup(PIN_READY,GPIO.OUT)
 
         for pin in PIN_RELAY:
             GPIO.setup(PIN_RELAY[pin], GPIO.OUT)
-
-        GPIO.output(PIN_READY,True)
 
     def stop(self):
         GPIO.cleanup() 
