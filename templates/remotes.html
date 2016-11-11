@@ -18,8 +18,6 @@
       </ul>
 
       <div ng-show="remote" class="remote">
-        <!-- <input class="form-control input-lg" type="text" ng-model="remote.name"> -->
-
         <div ng-repeat="code in remote.uicodes" class="col-xs-4 col-btn">
           <button ng-click="sendCommand(code)" class="btn btn-sm btn-block btn-default btn-{{ code.color }}">
             <i ng-show="code.icon" class="icon {{ code.icon }}"></i><br  ng-show="code.icon" />

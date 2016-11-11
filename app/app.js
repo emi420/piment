@@ -29,7 +29,7 @@
               templateUrl: 'templates/wizard2.html',
               controller: 'Wizard2Ctrl'
            }).
-           when('/admin', {
+           when('/admin/:controltype', {
               templateUrl: 'templates/admin.html',
               controller: 'AdminCtrl'
            }).

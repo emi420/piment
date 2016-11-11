@@ -3,7 +3,8 @@
   <div class="col-sm-2">  
   </div>
   <div class="col-sm-8 text-center"> 
-    <h2>Administrador</h2>
+    <h2>Administrador {{ title }}</h2>
+    <h3></h3>
 
       <hr />
 
@@ -97,6 +98,7 @@
         </form>
       </div>
       <div class="modal-footer">
+        <button type="button" data-dismiss="modal" ng-click="deleteBtn(code)" class="btn btn-default"><i class="glyphicon glyphicon-remove"></i> Borrar</button>
         <button type="button" data-dismiss="modal" class="btn btn-primary">Aceptar</button>
       </div>
     </div>

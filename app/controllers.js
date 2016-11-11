@@ -12,7 +12,7 @@
 
 angular.module('app.controllers', ["app.services","ui-iconpicker"])
 
-    .controller('DebugCtrl', function($scope, $timeout, IRRecord) {
+    .controller('DebugCtrl', function($scope, $timeout, IR) {
 
       var statusTextareaElement = document.getElementById("statusTextarea");
       var updateTextareaScroll = function() {
@@ -23,95 +23,95 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
 
       $scope.getStatus = false;
 
-      $scope.IRRecord = {
+      $scope.IR = {
         status: "",
         config: "",
 
         launch: function() {
-          IRRecord.launch().then(function(response) {
-            $scope.IRRecord.status = response;
+          IR.launch().then(function(response) {
+            $scope.IR.status = response;
             $scope.getStatus = true;
-            $scope.IRRecord.getStatus();            
+            $scope.IR.getStatus();            
           })
         },
 
         getNamespace: function() {
-          IRRecord.getNamespace().then(function(response) {
+          IR.getNamespace().then(function(response) {
             $scope.namespace = response;
           })
         },
 
         getRemotes: function() {
-          IRRecord.getRemotes({raw: true}).then(function(response) {
-            $scope.IRRecord.status  = response;
+          IR.getRemotes({raw: true}).then(function(response) {
+            $scope.IR.status  = response;
           })
         },
 
         mode2: function() {
-          IRRecord.mode2().then(function(response) {
-            $scope.IRRecord.status = response;
+          IR.mode2().then(function(response) {
+            $scope.IR.status = response;
             $scope.getStatus = true;
             $scope.testing = true;
-            $scope.IRRecord.getStatus();
+            $scope.IR.getStatus();
           })
         },
 
         enter: function() {
-          IRRecord.enter().then(function(response) {
-            $scope.IRRecord.status = $scope.IRRecord.status + response;
+          IR.enter().then(function(response) {
+            $scope.IR.status = $scope.IR.status + response;
           })
         },
 
         stop: function() {
           $scope.getStatus = false;
           $scope.testing = false;
-          IRRecord.stop().then(function(response) {
+          IR.stop().then(function(response) {
             // Do nothing
           })
         },
 
         startLirc: function() {
-          IRRecord.startLircService().then(function(response) {
-            $scope.IRRecord.status += response;
+          IR.startLircService().then(function(response) {
+            $scope.IR.status += response;
           })
         },
 
         stopLirc: function() {
-          IRRecord.stopLircService().then(function(response) {
-            $scope.IRRecord.status += response;
+          IR.stopLircService().then(function(response) {
+            $scope.IR.status += response;
           })
         },
 
         sendNamespace: function() {
-          IRRecord.sendNamespace($scope.selectedNamespace).then(function(response) {
-            $scope.IRRecord.status = $scope.IRRecord.status + response;
+          IR.sendNamespace($scope.selectedNamespace).then(function(response) {
+            $scope.IR.status = $scope.IR.status + response;
           })
         },
 
         getLastConfig: function() {
-          IRRecord.getLastConfig().then(function(response) {
-            $scope.IRRecord.status = response;
+          IR.getLastConfig().then(function(response) {
+            $scope.IR.status = response;
           })
         },
 
         getConfig: function() {
-          IRRecord.getConfig().then(function(response) {
-            $scope.IRRecord.config = response;
+          IR.getConfig().then(function(response) {
+            $scope.IR.config = response;
           })
         },
 
         saveConfig: function() {
-          IRRecord.saveConfig($scope.IRRecord.config).then(function(response) {
-            $scope.IRRecord.status = response;
+          IR.saveConfig($scope.IR.config).then(function(response) {
+            $scope.IR.status = response;
           })
         },
 
         getStatus: function() {
-          IRRecord.getStatus().then(function(response) {
-            $scope.IRRecord.status = $scope.IRRecord.status + response;
+          IR.getStatus().then(function(response) {
+            $scope.IR.status = $scope.IR.status + response;
             updateTextareaScroll();                
             if ($scope.getStatus === true) {
-               $timeout($scope.IRRecord.getStatus, 500);
+               $timeout($scope.IR.getStatus, 500);
             }
           })
         },
@@ -120,7 +120,7 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
 
     })
 
-    .controller('WizardCtrl', function($scope, $timeout, IRRecord) {
+    .controller('WizardCtrl', function($scope, $timeout, IR) {
 
       $scope.step = 0;
       $scope.pointCount = 0;     
@@ -128,10 +128,10 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
 
       $scope.startWizard = function() {
         $scope.loading = true;
-        IRRecord.stopLircService().then(function() {
-          IRRecord.stop().then(function() {
-            IRRecord.launch().then(function(response) {
-              IRRecord.enter();
+        IR.stopLircService().then(function() {
+          IR.stop().then(function() {
+            IR.launch().then(function(response) {
+              IR.enter();
                $scope.loading = false;
                $scope.recordingMsg = false;
                $scope.step = 1;
@@ -153,7 +153,7 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
       }
 
       var getStatus = function() {
-        IRRecord.getStatus().then(function(response) {
+        IR.getStatus().then(function(response) {
           if (response !== "[EOF]" && response !== "Error." && response !== "Try again.") {
             $scope.status = $scope.status + response;
             if (response.length < 10) {
@@ -186,7 +186,7 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
       var timeout1;
       $scope.step2 = function() {
         $scope.loading = true;
-        IRRecord.enter().then(function(response) {
+        IR.enter().then(function(response) {
            timeout1 = $timeout(function() {
             if ($scope.step === 2) {
               $scope.timeout = true;
@@ -208,7 +208,7 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
       var timeout2;
       $scope.step2C = function() {
         $scope.loading = true;
-        IRRecord.enter().then(function(response) {
+        IR.enter().then(function(response) {
            timeout2 = $timeout(function() {
             if ($scope.step === 2.2) {
               $scope.timeout = true;
@@ -228,7 +228,7 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
         $scope.recordingMsg = false;
         $timeout.cancel(timeout1);
         $timeout.cancel(timeout2);
-        IRRecord.getNamespace().then(function(response) {
+        IR.getNamespace().then(function(response) {
            $scope.namespace = response;
            $scope.loading = false;
         })        
@@ -244,7 +244,7 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
           }
          }, 30000)
 
-        IRRecord.sendNamespace($scope.selectedNamespace).then(function(response) {
+        IR.sendNamespace($scope.selectedNamespace).then(function(response) {
           
         })
       }
@@ -253,11 +253,11 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
         $scope.step = 4;
         $scope.loading = true;
         $scope.keepGettingStatus = false;
-        IRRecord.enter().then(function() {
-          IRRecord.getLastConfig().then(function(response) {
+        IR.enter().then(function() {
+          IR.getLastConfig().then(function(response) {
             $scope.config = response;
-            IRRecord.stop().then(function() {
-              IRRecord.startLircService().then(function() {
+            IR.stop().then(function() {
+              IR.startLircService().then(function() {
                 $scope.loading = false;
               })
             })
@@ -267,7 +267,7 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
 
       $scope.save = function() {
         $scope.loading = true;
-        IRRecord.saveLastConfig($scope.name).then(function() {
+        IR.saveLastConfig($scope.name).then(function() {
           $scope.saved = true;
           $timeout(function() {
             $scope.saved = false;
@@ -287,7 +287,7 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
       }
     })
 
-    .controller('Wizard2Ctrl', function($scope, $timeout, IRRecord) {
+    .controller('Wizard2Ctrl', function($scope, $timeout, IR) {
 
       $scope.step = 0;
       $scope.pointCount = 0;     
@@ -296,9 +296,9 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
       $scope.step2 = function() {
         $scope.loading = true;
         $scope.recordingMsg = false;
-        IRRecord.stopLircService().then(function() {
-          IRRecord.stop().then(function() {
-            IRRecord.getNamespace().then(function(response) {
+        IR.stopLircService().then(function() {
+          IR.stop().then(function() {
+            IR.getNamespace().then(function(response) {
                $scope.namespace = response;
                $scope.step = 2;
                $scope.loading = false;
@@ -326,7 +326,7 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
       var buttonSignal = "";
 
       var getStatus = function() {
-        IRRecord.getStatus().then(function(response) {
+        IR.getStatus().then(function(response) {
           console.log("\n" + response)
           $scope.status = $scope.status + response;
           if (response !== "[EOF]" && response !== "Error." && response !== "Try again.") {
@@ -339,7 +339,7 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
                   $scope.keepGettingStatus = false;
                   $scope.recordedButtons[$scope.selectedNamespace.replace("\r","")] = buttonSignal.split("\n").slice(1).join("     ").replace(/\r/g, "").replace(/pulse/g, "").replace(/space/g, "");
                   buttonSignal = "";
-                  IRRecord.stop().then(function(response) {
+                  IR.stop().then(function(response) {
                     $scope.recordingMsg = false;
                   });
               }
@@ -375,7 +375,7 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
       }
 
       $scope.recordButton = function() {
-        IRRecord.mode2().then(function(response) {
+        IR.mode2().then(function(response) {
           console.log("mode2")
           $scope.keepGettingStatus = true;
           $scope.recordingMsg = true;
@@ -388,10 +388,10 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
         $scope.loading = true;
         $scope.config  = $scope.config.replace(/tmplircd.conf/g, $scope.name) 
 
-        IRRecord.getConfig().then(function(currentConfig) {
-          IRRecord.saveConfig(currentConfig + $scope.config).then(function() {
-              IRRecord.stop().then(function() {
-                IRRecord.startLircService().then(function() {
+        IR.getConfig().then(function(currentConfig) {
+          IR.saveConfig(currentConfig + $scope.config).then(function() {
+              IR.stop().then(function() {
+                IR.startLircService().then(function() {
                   $scope.saved = true;
                   $timeout(function() {
                     $scope.saved = false;
@@ -413,11 +413,20 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
       }
     })
 
-    .controller('AdminCtrl', function($scope, IRRecord) {
-      var remotes;
-      IRRecord.getRemotes().then(function(response) {
+    .controller('AdminCtrl', function($scope, IR, Relay, $routeParams) {
+      var remotes, Manager;
+
+      if ($routeParams.controltype == "ir") {
+        $scope.title = "IR"
+        Manager = IR;
+      } else {
+        Manager = Relay;
+        $scope.title = "Relay"
+      }
+
+      IR.getRemotes().then(function(response) {
         config_remotes = response;
-        IRRecord.getUIConfig().then(function(ui_remotes) {
+        IR.getUIConfig().then(function(ui_remotes) {
           var i,j;
           for (i = 0; i < ui_remotes.length; i++) {
             for (j = 0; j < config_remotes.length; j++) {
@@ -464,6 +473,14 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
         code.color = color;
       }
 
+
+      $scope.deleteBtn = function(code) {
+        code.color = "default";
+        code.icon = "";
+        code.name = "";
+      }
+
+
       $scope.saveRemote = function() {
         var i;
         $scope.loading = true;
@@ -472,7 +489,7 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
             $scope.remotes[i] = $scope.remote;
           }
         }
-        IRRecord.saveUIConfig(angular.toJson($scope.remotes)).then(function() {
+        IR.saveUIConfig(angular.toJson($scope.remotes)).then(function() {
           $scope.loading = false;          
         });        
       }
@@ -485,7 +502,7 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
             $scope.remotes[i].published = false;
           }
         }
-        IRRecord.saveUIConfig(angular.toJson($scope.remotes)).then(function() {
+        IR.saveUIConfig(angular.toJson($scope.remotes)).then(function() {
           $scope.loading = false;
         });        
       }
@@ -498,15 +515,15 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
             $scope.remotes[i].published = true;
           }
         }
-        IRRecord.saveUIConfig(angular.toJson($scope.remotes)).then(function() {
+        IR.saveUIConfig(angular.toJson($scope.remotes)).then(function() {
           $scope.loading = false;
         });        
       }
 
     })
 
-    .controller('RemotesCtrl', function($scope, IRRecord) {
-      IRRecord.getUIConfig().then(function(ui_remotes) {
+    .controller('RemotesCtrl', function($scope, IR) {
+      IR.getUIConfig().then(function(ui_remotes) {
         $scope.remotes = ui_remotes;
       })
 
@@ -535,7 +552,7 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
       }
 
       $scope.sendCommand = function(code) {
-         IRRecord.sendCommand($scope.remote.name,code.name).then(function(response) {
+         IR.sendCommand($scope.remote.name,code.name).then(function(response) {
            
          }) 
        }

@@ -6,7 +6,7 @@
 
     // Debug setting
     if (SETTINGS.host.indexOf("localhost") > -1) {
-      SETTINGS.host = SETTINGS.host.replace("localhost","192.168.10.107")
+      SETTINGS.host = SETTINGS.host.replace("localhost","192.168.0.104")
     }
 
     angular.module('app.services', [])
@@ -15,12 +15,12 @@
         return SETTINGS;
     })
 
-    .factory('IRRecord', function($q, $http) {
+    .factory('IR', function($q, $http) {
         return {
 
           launch: function() {
             var deferred = $q.defer();
-            $http.get(SETTINGS.host + '/api/irrecord/').then(function(r) {
+            $http.get(SETTINGS.host + '/api/ir/').then(function(r) {
               deferred.resolve(r.data);
             }, function(r) {
               deferred.resolve("Error.");
@@ -30,7 +30,7 @@
 
           getNamespace: function() {
             var deferred = $q.defer();
-            $http.get(SETTINGS.host + '/api/irrecord/get-namespace/').then(function(r) {
+            $http.get(SETTINGS.host + '/api/ir/get-namespace/').then(function(r) {
               deferred.resolve( r.data.split("\n"));
             }, function(r) {
               deferred.resolve("Error.");
@@ -40,7 +40,7 @@
 
           mode2: function() {
             var deferred = $q.defer();
-            $http.get(SETTINGS.host + '/api/irrecord/mode2/').then(function(r) {
+            $http.get(SETTINGS.host + '/api/ir/mode2/').then(function(r) {
               deferred.resolve(r.data);
             }, function(r) {
               deferred.resolve("Error.");
@@ -50,7 +50,7 @@
 
           enter: function() {
             var deferred = $q.defer();
-            $http.get(SETTINGS.host + '/api/irrecord/enter/').then(function(r) {
+            $http.get(SETTINGS.host + '/api/ir/enter/').then(function(r) {
               deferred.resolve(r.data);
             }, function(r) {
               deferred.resolve("Error.");
@@ -61,7 +61,7 @@
 
           stop: function() {
             var deferred = $q.defer();
-            $http.get(SETTINGS.host + '/api/irrecord/kill/').then(function(r) {
+            $http.get(SETTINGS.host + '/api/ir/kill/').then(function(r) {
               deferred.resolve(true);
             }, function(r) {
               deferred.resolve("Error.");
@@ -80,7 +80,7 @@
 
           sendNamespace: function(namespace) {
             var deferred = $q.defer();
-            $http.get(SETTINGS.host + '/api/irrecord/' + namespace + '/send/' ).then(function(r) {
+            $http.get(SETTINGS.host + '/api/ir/' + namespace + '/send/' ).then(function(r) {
               deferred.resolve(r.data);
             }, function(r) {
               deferred.resolve("Error.");
@@ -90,7 +90,7 @@
 
           getLastConfig: function() {
             var deferred = $q.defer();
-            $http.get(SETTINGS.host + '/api/irrecord/get-last-config/' ).then(function(r) {
+            $http.get(SETTINGS.host + '/api/ir/get-last-config/' ).then(function(r) {
               deferred.resolve(r.data);
             }, function(r) {
               deferred.resolve("Error.");
@@ -100,7 +100,7 @@
 
           saveLastConfig: function(name) {
             var deferred = $q.defer();
-            $http.get(SETTINGS.host + '/api/irrecord/' + name + '/save-last-config/' ).then(function(r) {
+            $http.get(SETTINGS.host + '/api/ir/' + name + '/save-last-config/' ).then(function(r) {
               deferred.resolve(r.data);
             }, function(r) {
               deferred.resolve("Error.");
@@ -110,7 +110,7 @@
 
           saveConfig: function(data) {
             var deferred = $q.defer();
-            $http.post(SETTINGS.host + '/api/irrecord/save-config/', data).then(function(r) {
+            $http.post(SETTINGS.host + '/api/ir/save-config/', data).then(function(r) {
               deferred.resolve("Ok.");
             }, function(r) {
               deferred.resolve("Error.");
@@ -120,7 +120,7 @@
 
           stopLircService: function() {
             var deferred = $q.defer();
-            $http.get(SETTINGS.host + '/api/irrecord/stop-lirc-service/' ).then(function(r) {
+            $http.get(SETTINGS.host + '/api/ir/stop-lirc-service/' ).then(function(r) {
               deferred.resolve(r.data);
             }, function(r) {
               deferred.resolve("Error.");
@@ -130,7 +130,7 @@
 
           startLircService: function() {
             var deferred = $q.defer();
-            $http.get(SETTINGS.host + '/api/irrecord/start-lirc-service/' ).then(function(r) {
+            $http.get(SETTINGS.host + '/api/ir/start-lirc-service/' ).then(function(r) {
               deferred.resolve(r.data);
             }, function(r) {
               deferred.resolve("Error.");
@@ -140,7 +140,7 @@
 
           getStatus: function() {
             var deferred = $q.defer();
-            $http.get(SETTINGS.host + '/api/irrecord/status/').then(function(r) {
+            $http.get(SETTINGS.host + '/api/ir/status/').then(function(r) {
               deferred.resolve(r.data);
             }, function(r) {
               deferred.resolve("Error.");
@@ -150,7 +150,7 @@
 
           getConfig: function() {
             var deferred = $q.defer();
-            $http.get(SETTINGS.host + '/api/irrecord/get-config/').then(function(r) {
+            $http.get(SETTINGS.host + '/api/ir/get-config/').then(function(r) {
               deferred.resolve(r.data);
             }, function(r) {
               deferred.resolve("Error.");
@@ -170,7 +170,7 @@
 
           saveUIConfig: function(data) {
             var deferred = $q.defer();
-            $http.post(SETTINGS.host + '/api/irrecord/save-ui-config/',data).then(function(r) {
+            $http.post(SETTINGS.host + '/api/ir/save-ui-config/',data).then(function(r) {
               deferred.resolve(r.data);
             }, function(r) {
               deferred.resolve("Error.");
@@ -180,7 +180,7 @@
 
           getRemotes: function(options) {
             var deferred = $q.defer();
-            $http.get(SETTINGS.host + '/api/irrecord/get-config/').then(function(r) {
+            $http.get(SETTINGS.host + '/api/ir/get-config/').then(function(r) {
               if (options && options.raw === true) {
                 deferred.resolve(r.data);
               } else {
@@ -242,7 +242,43 @@
           },
 
         }
+    })
 
+
+    .factory('Relay', function($q, $http) {
+        return {
+
+          sendCommand: function(controlname, codename) {
+            var deferred = $q.defer();  /api/relay/off/2.1
+            $http.get(SETTINGS.host + '/api/relay/' + codename + '/' + controlname ).then(function(r) {
+              deferred.resolve(r.data);
+            }, function(r) {
+              deferred.resolve("Error.");
+            });
+            return deferred.promise; 
+          },
+
+          getUIConfig: function() {
+            var deferred = $q.defer();
+            $http.get(SETTINGS.host + '/api/get-relay-ui-config/').then(function(r) {
+              deferred.resolve(r.data);
+            }, function(r) {
+              deferred.resolve("Error.");
+            });
+            return deferred.promise;    
+          },
+
+          saveUIConfig: function(data) {
+            var deferred = $q.defer();
+            $http.post(SETTINGS.host + '/api/ir/save-relay-ui-config/',data).then(function(r) {
+              deferred.resolve(r.data);
+            }, function(r) {
+              deferred.resolve("Error.");
+            });
+            return deferred.promise;    
+          },
+
+      }          
   });
 
 

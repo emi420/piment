@@ -44,8 +44,16 @@ class Router(object):
                 f.write(data)
                 result = 'Saved.'
             return result
-        if path == "/api/ir/save-config/":
+        elif path == "/api/ir/save-relay-ui-config/":
+            result = 'Not saved.'
+            with open("remotes-relay-ui.json", "w") as f:
+                f.write(data)
+                result = 'Saved.'
+            return result
+        elif path == "/api/ir/save-config/":
             return self.ir.save_config(data)
+        else:
+            return "Not found."
 
     def get(self, path):
         """Respond to a GET request."""
@@ -120,6 +128,16 @@ class Router(object):
                 p.readline()
 
                 response = "Connected."
+
+            elif path == "/api/get-relay-ui-config/":
+                if ospath.isfile("remotes-relay-ui.json"):
+                    content = ""
+                    with open("remotes-relay-ui.json", "r") as f:
+                        for line in f:
+                            content = content + line
+                else:
+                    content = "File not found. \n"
+                response = content
 
             elif path == "/api/get-ui-config/":
                 if ospath.isfile("remotes-ui.json"):
