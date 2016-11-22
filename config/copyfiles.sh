@@ -1,2 +1,2 @@
-sudo cp config.txt "/boot/"
-sudo cp modules "/etc/"
+cp config.txt /boot/config.txt
+cp modules /etc/modules
