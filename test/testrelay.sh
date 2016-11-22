@@ -1,9 +1,5 @@
 #!/bin/bash 
 ip="$1"
-echo "Status LED ON"
-curl "http://$ip/api/relay/on/st"
-sleep 1
-echo "Testing ..."
 curl "http://$ip/api/relay/on/2.1"
 sleep 1
 echo ""
@@ -88,8 +84,5 @@ echo ""
 curl "http://$ip/api/relay/off/8.2"
 sleep 1
 echo ""
-echo "Status LED OFF"
-curl "http://$ip/api/relay/off/st"
-sleep 1
 echo "Done."
 
