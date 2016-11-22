@@ -5,8 +5,9 @@ GPIO.setmode(GPIO.BOARD)
 
 GPIO.setup(29, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
+print('Press button ...')
 while True:
     input_state = GPIO.input(29)
     if input_state == False:
         print('Button Pressed')
-        time.sleep(0.2)
+        break

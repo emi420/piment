@@ -1,0 +1,38 @@
+#!/bin/bash 
+ip="$1"
+echo "****************************"
+echo "***** Test: Status LED *****"
+echo "****************************"
+echo ""
+./testst.sh
+echo "***********************"
+echo "***** Test: Relay *****"
+echo "***********************"
+echo ""
+./testrelay.sh
+echo "*************************"
+echo "***** Test: Button *****"
+echo "************************"
+echo ""
+ssh "pi@$ip" "cd ~/piment/test && python testbtn.py"
+echo "*************************"
+echo "***** Test: IR Out *****"
+echo "************************"
+echo ""
+echo "Send start"
+ssh "pi@$ip" "irsend SEND_START TV KEY_MUTE"
+sleep(5)
+echo "Send end"
+ssh "pi@$ip" "irsend SEND_STOP TV KEY_MUTE"
+echo "*************************"
+echo "***** Test: IR In *****"
+echo "************************"
+echo ""
+echo "Lirc service stop"
+ssh "pi@$ip" "sudo service lirc stop"
+sleep(5)
+echo "Receiving IR ..."
+ssh "pi@$ip" "mode2 -d /dev/lirc0"
+echo ""
+echo "Test done."
+
