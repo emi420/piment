@@ -1,3 +1,3 @@
 #!/bin/bash 
-cp config.txt /boot/config.txt
-cp modules /etc/modules
+sudo cp config.txt /boot/config.txt
+sudo cp modules /etc/modules
