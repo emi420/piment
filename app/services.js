@@ -249,7 +249,7 @@
         return {
 
           sendCommand: function(controlname, codename) {
-            var deferred = $q.defer();  /api/relay/off/2.1
+            var deferred = $q.defer(); 
             $http.get(SETTINGS.host + '/api/relay/' + codename + '/' + controlname ).then(function(r) {
               deferred.resolve(r.data);
             }, function(r) {

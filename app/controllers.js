@@ -419,26 +419,32 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
       if ($routeParams.controltype == "ir") {
         $scope.title = "IR"
         Manager = IR;
+
+        Manager.getRemotes().then(function(response) {
+          config_remotes = response;
+          Manager.getUIConfig().then(function(ui_remotes) {
+            var i,j;
+            for (i = 0; i < ui_remotes.length; i++) {
+              for (j = 0; j < config_remotes.length; j++) {
+                if (config_remotes[j].name === ui_remotes[i].name) {
+                  config_remotes[j].uicodes = ui_remotes[i].uicodes;
+                  config_remotes[j].published = ui_remotes[i].published;
+                }
+              }
+            }
+            $scope.remotes = config_remotes;
+          })
+        });
+
       } else {
         Manager = Relay;
         $scope.title = "Relay"
-      }
 
-      IR.getRemotes().then(function(response) {
-        config_remotes = response;
-        IR.getUIConfig().then(function(ui_remotes) {
-          var i,j;
-          for (i = 0; i < ui_remotes.length; i++) {
-            for (j = 0; j < config_remotes.length; j++) {
-              if (config_remotes[j].name === ui_remotes[i].name) {
-                config_remotes[j].uicodes = ui_remotes[i].uicodes;
-                config_remotes[j].published = ui_remotes[i].published;
-              }
-            }
-          }
-          $scope.remotes = config_remotes;
+        Manager.getUIConfig().then(function(ui_remotes) {
+          $scope.remotes = ui_remotes;
         })
-      })
+
+      }
 
       $scope.editRemote = function(remote) {
         var i, 
@@ -489,7 +495,7 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
             $scope.remotes[i] = $scope.remote;
           }
         }
-        IR.saveUIConfig(angular.toJson($scope.remotes)).then(function() {
+        Manager.saveUIConfig(angular.toJson($scope.remotes)).then(function() {
           $scope.loading = false;          
         });        
       }
@@ -502,7 +508,7 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
             $scope.remotes[i].published = false;
           }
         }
-        IR.saveUIConfig(angular.toJson($scope.remotes)).then(function() {
+        Manager.saveUIConfig(angular.toJson($scope.remotes)).then(function() {
           $scope.loading = false;
         });        
       }
@@ -515,15 +521,15 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
             $scope.remotes[i].published = true;
           }
         }
-        IR.saveUIConfig(angular.toJson($scope.remotes)).then(function() {
+        Manager.saveUIConfig(angular.toJson($scope.remotes)).then(function() {
           $scope.loading = false;
         });        
       }
 
     })
 
-    .controller('RemotesCtrl', function($scope, IR) {
-      IR.getUIConfig().then(function(ui_remotes) {
+    .controller('RemotesCtrl', function($scope, Manager) {
+      Manager.getUIConfig().then(function(ui_remotes) {
         $scope.remotes = ui_remotes;
       })
 
@@ -552,7 +558,7 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
       }
 
       $scope.sendCommand = function(code) {
-         IR.sendCommand($scope.remote.name,code.name).then(function(response) {
+         Manager.sendCommand($scope.remote.name,code.name).then(function(response) {
            
          }) 
        }

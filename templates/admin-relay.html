@@ -1,0 +1,109 @@
+
+<div class="row">
+  <div class="col-sm-2">  
+  </div>
+  <div class="col-sm-8 text-center"> 
+    <h2>Administrador IR</h2>
+    <h3></h3>
+
+      <hr />
+
+      <div ng-hide="remotes" class="jumbotron">
+          <h3>Cargando ...</h3>
+      </div>
+
+      <ul class="list-group">
+        <a ng-repeat="remote in remotes" class="list-group-item" ng-class="{'active': (remote.id === selectedRemoteId)}" ng-click="editRemote(remote)">
+          <span ng-show="(remote.published !== false)" class="badge">Publicado</span>
+          <h4>{{ remote.name }}</h4>
+        </a>
+      </ul>
+
+
+      <div ng-show="remote" class="remote">
+        <h3>{{remote.name}}</h3>
+        <br />
+        <button class="btn btn-block btn-success" ng-disabled="loading" ng-click="saveRemote()">Guardar</button>
+        <button ng-show="(remote.published !== false)" ng-disabled="loading" class="btn btn-block btn-default" ng-click="disableRemote()">No publicar</button>
+        <button ng-show="(remote.published === false)"  ng-disabled="loading" class="btn btn-block btn-default" ng-click="enableRemote()">Publicar</button>
+       
+        <hr />
+
+        <div ng-repeat="code in remote.uicodes" class="col-xs-4 col-btn">
+          <button ng-click="editBtn(code)" class="btn btn-sm btn-block btn-default btn-{{ code.color }}">
+            <i ng-show="code.icon" class="icon {{ code.icon }}"></i><br  ng-show="code.icon" />
+            <span ng-show="(code.icon || code.text.length > 3)">{{ code.text }}</span>
+            <span ng-show="(!code.icon && code.text.length < 4)"><h3>{{ code.text }}</h3></span>
+          </button> 
+        </div> 
+
+      </div>
+
+  </div>
+  <div class="col-sm-2">  
+  </div>
+</div>
+
+
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Editar</h4>
+      </div>
+      <div class="modal-body">
+         <form class="form-horizontal">
+
+          <div class="form-group">
+            <label class="col-sm-2">Icono</label>
+            <div class="col-sm-10">
+              <ui-iconpicker ng-model="code.icon"></ui-iconpicker>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2">Color</label>
+            <div class="col-sm-10">
+              <button class="btn btn-{{ code.color || 'default' }} dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                {{ code.color || "default"}}
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a ng-click="setBtnColor('default', code)"><i class="btn btn-default"></i> default</a></li>
+                <li><a ng-click="setBtnColor('primary', code)"><i class="btn btn-primary"></i> primary</a></li>
+                <li><a ng-click="setBtnColor('success', code)"><i class="btn btn-success"></i> success</a></li>
+                <li><a ng-click="setBtnColor('info', code)"><i class="btn btn-info"></i> info</a></li>
+                <li><a ng-click="setBtnColor('danger', code)"><i class="btn btn-danger"></i> danger</a></li>
+                <li><a ng-click="setBtnColor('warning', code)"><i class="btn btn-warning"></i> warning</a></li>
+              </ul>
+            </div>
+          </div>
+
+           <div class="form-group">
+            <label class="col-sm-2">Texto</label>
+            <div class="col-sm-10">
+              <input type="text" ng-model="code.text" placeholder="Texto del botón" class="form-control" />
+            </div>
+          </div>
+
+           <div class="form-group">
+            <label class="col-sm-2">Función</label>
+            <div class="col-sm-10">
+                <select class="form-control" ng-model="code.name">
+                  <option ng-show="code.name" ng-repeat="code in remote.codes" value="{{code.name}}">{{code.name}}</option>
+                </select>
+            </div>
+            </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" data-dismiss="modal" ng-click="deleteBtn(code)" class="btn btn-default"><i class="glyphicon glyphicon-remove"></i> Borrar</button>
+        <button type="button" data-dismiss="modal" class="btn btn-primary">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
