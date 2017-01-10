@@ -11,6 +11,7 @@
 '''
 
 import RPi.GPIO as GPIO
+import threading
 from btpair import BTPair
 
 PIN_RELAY = {
@@ -42,12 +43,19 @@ class Relay(object):
         GPIO.setup(29, GPIO.IN, pull_up_down=GPIO.PUD_UP)        
 
         self.btpair = BTPair()
-        while True:
-            input_state = GPIO.input(29)
-            if input_state == False:
-                res = self.btpair.wait()
-                print(res)
-        
+
+        def watch_button():
+            while True:
+                input_state = GPIO.input(29)
+                if input_state == False:
+                    res = self.btpair.wait()
+                    print(res)
+            
+
+        thread = threading.Thread(target=watch_button, args=())
+        thread.daemon = True                            
+        thread.start() 
+
 
     def stop(self):
         GPIO.cleanup() 

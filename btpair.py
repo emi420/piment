@@ -39,6 +39,7 @@ class BTPair(object):
         except(e):
             pass
     	print "Paired"
+        self.stop()
         return "Paired"
 
 	def stop(self):
