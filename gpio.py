@@ -42,6 +42,7 @@ class Relay(object):
 
         GPIO.setup(29, GPIO.IN, pull_up_down=GPIO.PUD_UP)        
         self.btpair = BTPair()
+        self.listen()
 
 
     def listen(self):

@@ -13,7 +13,6 @@ Piment Router - a router for IR and GPIO
 '''
 from ir import IR
 from gpio import Relay
-from btpair import BTPair
 from os import path as ospath
 import pexpect
 import re
@@ -31,7 +30,6 @@ class Router(object):
     def __init__(self):
         self.ir = IR()
         self.relay = Relay()
-        self.btpair = BTPair()
 
     def stop(self):
         self.relay.stop()
