@@ -103,10 +103,9 @@ class http_server:
 class main:
     def __init__(self):
         self.router = Router()
-
+        self.router.btpair.listen()
         self.btserver = BTServer(self.router)
         self.btserver.listen()
-
         self.server = http_server(self.router)
 
 if __name__ == '__main__':
