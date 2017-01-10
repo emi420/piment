@@ -36,10 +36,9 @@ class BTPair(object):
     	self.p.sendline("yes")
         try:
         	self.p.expect('Paired: yes')
-        except(e):
-            pass
-    	print "Paired"
-        self.stop()
+            self.stop()
+        except:
+            self.stop()
         return "Paired"
 
 	def stop(self):
