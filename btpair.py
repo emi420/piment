@@ -44,4 +44,5 @@ class BTPair(object):
 	def stop(self):
 		self.p.kill(0)
 		self.waiting = False
-		return "Stopped"
+		return "Stopped."
+
