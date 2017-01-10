@@ -1,5 +1,10 @@
 #!/bin/bash 
 ip="$1"
+echo ""
+echo "***********************"
+echo "***** Test: Relay *****"
+echo "***********************"
+echo ""
 curl "http://$ip/api/relay/on/2.1"
 sleep 1
 echo ""

@@ -1,8 +1,7 @@
 #!/bin/bash 
 ip="$1"
-iplast=$(echo $1| cut -d'.' -f 1)
+iplast=$(echo $1| cut -d'.' -f 4)
 echo "Updating $1"
-echo "Updating $iplast"
 echo ""
 cd ..
 echo "Adding new local origin ..."

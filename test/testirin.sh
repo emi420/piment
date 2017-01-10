@@ -1,0 +1,17 @@
+#!/bin/bash 
+ip="$1"
+echo "*************************"
+echo "***** Test: IR In *****"
+echo "************************"
+echo ""
+echo "Lirc service stop"
+ssh "pi@$ip" "sudo service lirc stop"
+sleep 5
+echo ""
+echo "Receiving IR ..."
+ssh "pi@$ip" "mode2 -d /dev/lirc0"
+echo ""
+echo "Lirc service start"
+ssh "pi@$ip" "sudo service lirc start"
+echo ""
+echo "Done."
