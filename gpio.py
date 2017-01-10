@@ -11,6 +11,7 @@
 '''
 
 import RPi.GPIO as GPIO
+from btpair import BTPair
 
 PIN_RELAY = {
     "2.1": 37,
