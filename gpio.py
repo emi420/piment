@@ -38,6 +38,16 @@ class Relay(object):
         for pin in PIN_RELAY:
             GPIO.setup(PIN_RELAY[pin], GPIO.OUT)
 
+        GPIO.setup(29, GPIO.IN, pull_up_down=GPIO.PUD_UP)        
+
+        self.btpair = BTPair()
+        while True:
+            input_state = GPIO.input(29)
+            if input_state == False:
+                res = self.btpair.wait()
+                print(res)
+        
+
     def stop(self):
         GPIO.cleanup() 
 
