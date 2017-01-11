@@ -12,7 +12,7 @@
           <h3>Cargando ...</h3>
       </div>
 
-      <button ng-show="remotes" class="btn btn-block btn-default" ng-click="newRelayRemote()">Nuevo</button>
+      <button ng-show="remotes && (controltype == 'relay')" class="btn btn-block btn-default" ng-click="newRelayRemote()">Nuevo</button>
       <br />
       <ul class="list-group">
         <a ng-repeat="remote in remotes" class="list-group-item" ng-class="{'active': (remote.id === selectedRemoteId)}" ng-click="editRemote(remote)">
@@ -25,8 +25,8 @@
         <h3>{{remote.name}}</h3>
         <br />
         <button class="btn btn-block btn-success" ng-disabled="loading" ng-click="saveRemote()">Guardar</button>
-        <button ng-show="(remote.published !== false)" ng-disabled="loading" class="btn btn-block btn-default" ng-click="disableRemote()">No publicar</button>
-        <button ng-show="(remote.published === false)"  ng-disabled="loading" class="btn btn-block btn-default" ng-click="enableRemote()">Publicar</button>
+        <button ng-show="(remote.published !== false) && (controltype == 'ir')" ng-disabled="loading" class="btn btn-block btn-default" ng-click="disableRemote()">No publicar</button>
+        <button ng-show="(remote.published === false) && (controltype == 'ir')"  ng-disabled="loading" class="btn btn-block btn-default" ng-click="enableRemote()">Publicar</button>
        
         <hr />
 

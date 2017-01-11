@@ -416,6 +416,7 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
     .controller('AdminCtrl', function($scope, IR, Relay, $routeParams) {
       var remotes, Manager;
 
+      $scope.controltype = $routeParams.controltype;
       if ($routeParams.controltype == "ir") {
         $scope.title = "IR"
         Manager = IR;
