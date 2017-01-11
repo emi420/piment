@@ -464,17 +464,31 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
           $scope.newrelayremote.codes = [];
           for (i = 2; i < 9; i++) {
             $scope.newrelayremote.codes.push({
-              name: i + "_ON"
+              name: i + ".1_ON"
             })
             $scope.newrelayremote.codes.push({
-              name: i + " _OFF"
+              name: i + ".1 _OFF"
             })
             $scope.newrelayremote.codes.push({
-              name: i + "_ON_OFF",
+              name: i + ".1_ON_OFF",
               hold: true
             })
             $scope.newrelayremote.codes.push({
-              name: i + "_OFF_ON",
+              name: i + ".1_OFF_ON",
+              hold: true
+            })
+            $scope.newrelayremote.codes.push({
+              name: i + ".2_ON"
+            })
+            $scope.newrelayremote.codes.push({
+              name: i + ".2_OFF"
+            })
+            $scope.newrelayremote.codes.push({
+              name: i + ".2_ON_OFF",
+              hold: true
+            })
+            $scope.newrelayremote.codes.push({
+              name: i + ".2_OFF_ON",
               hold: true
             })
           }
