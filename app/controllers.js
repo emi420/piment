@@ -528,7 +528,8 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
 
     })
 
-    .controller('RemotesCtrl', function($scope, Manager) {
+    .controller('RemotesCtrl', function($scope, IR, Relay) {
+      Manager = IR;
       Manager.getUIConfig().then(function(ui_remotes) {
         $scope.remotes = ui_remotes;
       })
