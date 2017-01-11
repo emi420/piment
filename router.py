@@ -42,7 +42,7 @@ class Router(object):
                 f.write(data)
                 result = 'Saved.'
             return result
-        elif path == "/api/ir/save-relay-ui-config/":
+        elif path == "/api/save-relay-ui-config/":
             result = 'Not saved.'
             with open("remotes-relay-ui.json", "w") as f:
                 f.write(data)

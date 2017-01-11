@@ -270,7 +270,7 @@
 
           saveUIConfig: function(data) {
             var deferred = $q.defer();
-            $http.post(SETTINGS.host + '/api/ir/save-relay-ui-config/',data).then(function(r) {
+            $http.post(SETTINGS.host + '/api/save-relay-ui-config/',data).then(function(r) {
               deferred.resolve(r.data);
             }, function(r) {
               deferred.resolve("Error.");

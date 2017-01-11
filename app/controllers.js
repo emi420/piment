@@ -441,9 +441,46 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
         $scope.title = "Relay"
 
         Manager.getUIConfig().then(function(ui_remotes) {
-          $scope.remotes = ui_remotes;
+          if (ui_remotes.indexOf("File not found.") === -1) {
+            $scope.remotes = JSON.parse(ui_remotes);
+          } else {
+            $scope.remotes = [];
+          }
+          
         })
 
+      }
+
+      $scope.newRelayRemote = function() {
+        $scope.newrelayremote = {};
+        $("#newRelayRemoteModal").modal('show');            
+      }
+
+      $scope.saveNewRelayRemote = function() {
+        var i;
+        if ($scope.newrelayremote.name) {
+          $scope.newrelayremote.buttons = [];
+          $scope.newrelayremote.published = false;
+          $scope.newrelayremote.codes = [];
+          for (i = 2; i < 9; i++) {
+            $scope.newrelayremote.codes.push({
+              name: i + " On"
+            })
+            $scope.newrelayremote.codes.push({
+              name: i + " Off"
+            })
+            $scope.newrelayremote.codes.push({
+              name: i + " On / Off",
+              hold: true
+            })
+            $scope.newrelayremote.codes.push({
+              name: i + " Off / On",
+              hold: true
+            })
+          }
+
+        }
+        $scope.remotes.push($scope.newrelayremote)
       }
 
       $scope.editRemote = function(remote) {
