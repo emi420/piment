@@ -442,7 +442,7 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
 
         Manager.getUIConfig().then(function(ui_remotes) {
           if (ui_remotes.indexOf("File not found.") === -1) {
-            $scope.remotes = JSON.parse(ui_remotes);
+            $scope.remotes = ui_remotes;
           } else {
             $scope.remotes = [];
           }
@@ -464,17 +464,17 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
           $scope.newrelayremote.codes = [];
           for (i = 2; i < 9; i++) {
             $scope.newrelayremote.codes.push({
-              name: i + " On"
+              name: i + "_ON"
             })
             $scope.newrelayremote.codes.push({
-              name: i + " Off"
+              name: i + " _OFF"
             })
             $scope.newrelayremote.codes.push({
-              name: i + " On / Off",
+              name: i + "_ON_OFF",
               hold: true
             })
             $scope.newrelayremote.codes.push({
-              name: i + " Off / On",
+              name: i + "_OFF_ON",
               hold: true
             })
           }

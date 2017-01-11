@@ -69,6 +69,10 @@ class Router(object):
                 response = self.relay.off(path.replace("/api/relay/off/", ""))
             elif path.startswith("/api/relay/on/"):
                 response = self.relay.on(path.replace("/api/relay/on/", ""))
+            elif path.startswith("/api/relay/onoff/"):
+                response = self.relay.onoff(path.replace("/api/relay/onoff/", ""))
+            elif path.startswith("/api/relay/offon/"):
+                response = self.relay.offon(path.replace("/api/relay/offon/", ""))
 
             elif path.startswith("/api/bluetooth/wait/"):
                 response = self.btpair.wait()

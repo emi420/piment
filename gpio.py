@@ -13,6 +13,7 @@
 import RPi.GPIO as GPIO
 import threading
 from btpair import BTPair
+from time import sleep
 
 PIN_RELAY = {
     "2.1": 37,
@@ -74,4 +75,21 @@ class Relay(object):
             return pin + ":false"
         return "No pin provided."
 
+
+    def onoff(self, pin):
+        if pin:
+            GPIO.output(PIN_RELAY[pin],True)
+            sleep(1)
+            GPIO.output(PIN_RELAY[pin],False)
+            return pin + ":false"
+        return "No pin provided."
+
+    def offon(self, pin):
+        if pin:
+        if pin:
+            GPIO.output(PIN_RELAY[pin],False)
+            sleep(1)
+            GPIO.output(PIN_RELAY[pin],True)
+            return pin + ":true"
+        return "No pin provided."
 
