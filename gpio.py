@@ -42,17 +42,16 @@ class Relay(object):
             GPIO.setup(PIN_RELAY[pin], GPIO.OUT)
 
         GPIO.setup(29, GPIO.IN, pull_up_down=GPIO.PUD_UP)        
-        #self.btpair = BTPair()
-        #self.listen()
+        self.btpair = BTPair()
+        self.listen()
 
 
     def listen(self):
         def watch_button():
-            while True:
-                input_state = GPIO.input(29)
-                if input_state == False:
-                    res = self.btpair.wait()
-                    print(res)
+            GPIO.wait_for_edge(29, GPIO)
+            print("Button pressed!")
+            res = self.btpair.wait()
+            print(res)
             
 
         thread = threading.Thread(target=watch_button, args=())
