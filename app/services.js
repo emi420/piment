@@ -6,7 +6,7 @@
 
     // Debug setting
     if (SETTINGS.host.indexOf("localhost") > -1) {
-      SETTINGS.host = SETTINGS.host.replace("localhost","192.168.0.112")
+      SETTINGS.host = SETTINGS.host.replace("localhost","192.168.30.43")
     }
 
     angular.module('app.services', [])
