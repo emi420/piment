@@ -468,7 +468,7 @@ angular.module('app.controllers', ["app.services","ui-iconpicker"])
               name: i + ".1_ON"
             })
             $scope.newrelayremote.codes.push({
-              name: i + ".1 _OFF"
+              name: i + ".1_OFF"
             })
             $scope.newrelayremote.codes.push({
               name: i + ".1_ON_OFF",
