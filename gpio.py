@@ -79,7 +79,7 @@ class Relay(object):
     def onoff(self, pin):
         if pin:
             GPIO.output(PIN_RELAY[pin],True)
-            sleep(1)
+            sleep(.5)
             GPIO.output(PIN_RELAY[pin],False)
             return pin + ":false"
         return "No pin provided."
