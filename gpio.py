@@ -87,7 +87,7 @@ class Relay(object):
     def offon(self, pin):
         if pin:
             GPIO.output(PIN_RELAY[pin],False)
-            sleep(1)
+            sleep(.5)
             GPIO.output(PIN_RELAY[pin],True)
             return pin + ":true"
         return "No pin provided."
