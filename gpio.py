@@ -16,22 +16,15 @@ from btpair import BTPair
 from time import sleep
 
 PIN_RELAY = {
-    "2.1": 37,
-    "2.2": 35,
-    "3.1": 31,
-    "3.2": 33,
-    "4.1": 40,
-    "4.2": 38,
-    "5.1": 32,
-    "5.2": 36,
-    "6.1": 26,
-    "6.2": 24,
-    "7.1": 11,
-    "7.2": 13,
-    "8.1": 10,
-    "8.2": 8,
+    "2.1": 36,
+    "2.2": 32,
+    "3.1": 10,
+    "3.2": 8,
+    "4.1": 37,
     "st": 22,
 }
+
+STATE_ON_RELAYS = ["2.1","2.2","3.1","3.2"]
 
 class Relay(object):
 
@@ -40,6 +33,10 @@ class Relay(object):
 
         for pin in PIN_RELAY:
             GPIO.setup(PIN_RELAY[pin], GPIO.OUT)
+            if pin not in STATE_ON_RELAYS:
+                GPIO.output(PIN_RELAY[pin],False)
+            else:
+                GPIO.output(PIN_RELAY[pin],True)
 
         GPIO.setup(29, GPIO.IN, pull_up_down=GPIO.PUD_UP)        
         self.btpair = BTPair()
@@ -47,17 +44,7 @@ class Relay(object):
 
 
     def listen(self):
-        def watch_button():
-            while True:
-                input_state = GPIO.input(29)
-                if input_state == False:
-                    res = self.btpair.wait()
-                    print(res)
-                sleep(0.10)            
-
-        thread = threading.Thread(target=watch_button, args=())
-        thread.daemon = True                            
-        thread.start() 
+        pass
 
     def stop(self):
         GPIO.cleanup() 
@@ -79,7 +66,7 @@ class Relay(object):
     def onoff(self, pin):
         if pin:
             GPIO.output(PIN_RELAY[pin],True)
-            sleep(.5)
+            sleep(.2)
             GPIO.output(PIN_RELAY[pin],False)
             return pin + ":false"
         return "No pin provided."

@@ -75,9 +75,10 @@ class Router(object):
                 response = self.relay.offon(path.replace("/api/relay/offon/", ""))
 
             elif path.startswith("/api/bluetooth/wait/"):
-                response = self.btpair.wait()
+                print "Bluetooth wait"
+                response = self.relay.btpair.wait()
             elif path.startswith("/api/bluetooth/stop/"):
-                response = self.btpair.stop()
+                response = self.relay.btpair.stop()
 
             elif path.startswith("/api/config/wifi/scan/"):
                 content = ""
