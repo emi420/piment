@@ -16,11 +16,20 @@ from btpair import BTPair
 from time import sleep
 
 PIN_RELAY = {
-    "2.1": 36,
-    "2.2": 32,
-    "3.1": 10,
-    "3.2": 8,
-    "4.1": 37,
+    "2.1": 37,
+    "2.2": 35,
+    "3.1": 31,
+    "3.2": 33,
+    "4.1": 40,
+    "4.2": 38,
+    "5.1": 32,
+    "5.2": 36,
+    "6.1": 26,
+    "6.2": 24,
+    "7.1": 11,
+    "7.2": 13,
+    "8.1": 10,
+    "8.2": 8,
     "st": 22,
 }
 
@@ -44,7 +53,17 @@ class Relay(object):
 
 
     def listen(self):
-        pass
+        def watch_button():
+            while True:
+                input_state = GPIO.input(29)
+                if input_state == False:
+                    res = self.btpair.wait()
+                    print(res)
+                sleep(0.10)            
+
+        thread = threading.Thread(target=watch_button, args=())
+        thread.daemon = True                            
+        thread.start() 
 
     def stop(self):
         GPIO.cleanup() 
