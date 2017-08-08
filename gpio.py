@@ -33,7 +33,7 @@ PIN_RELAY = {
     "st": 22,
 }
 
-STATE_ON_RELAYS = ["2.1","2.2","3.1","3.2"]
+STATE_ON_RELAYS = []
 
 class Relay(object):
 
@@ -50,7 +50,6 @@ class Relay(object):
         GPIO.setup(29, GPIO.IN, pull_up_down=GPIO.PUD_UP)        
         self.btpair = BTPair()
         self.listen()
-
 
     def listen(self):
         def watch_button():

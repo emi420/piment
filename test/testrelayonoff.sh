@@ -1,0 +1,50 @@
+#!/bin/bash 
+ip="$1"
+echo ""
+echo "**************************"
+echo "***** Test: Relay ON/OFF *****"
+echo "**************************"
+echo ""
+curl "http://$ip/api/relay/onoff/2.1"
+sleep 1
+echo ""
+curl "http://$ip/api/relay/onoff/2.2"
+sleep 1
+echo ""
+curl "http://$ip/api/relay/onoff/3.1"
+sleep 1
+echo ""
+curl "http://$ip/api/relay/onoff/3.2"
+sleep 1
+echo ""
+curl "http://$ip/api/relay/onoff/4.1"
+sleep 1
+echo ""
+curl "http://$ip/api/relay/onoff/4.2"
+sleep 1
+echo ""
+curl "http://$ip/api/relay/onoff/5.1"
+sleep 1
+echo ""
+curl "http://$ip/api/relay/onoff/5.2"
+sleep 1
+echo ""
+curl "http://$ip/api/relay/onoff/6.1"
+sleep 1
+echo ""
+curl "http://$ip/api/relay/onoff/6.2"
+sleep 1
+echo ""
+curl "http://$ip/api/relay/onoff/7.1"
+sleep 1
+echo ""
+curl "http://$ip/api/relay/onoff/7.2"
+sleep 1
+echo ""
+curl "http://$ip/api/relay/onoff/8.1"
+sleep 1
+echo ""
+curl "http://$ip/api/relay/onoff/8.2"
+echo ""
+echo "Done."
+

@@ -21,9 +21,9 @@ curl "http://$ip/api/relay/on/4.1"
 sleep 1
 echo ""
 curl "http://$ip/api/relay/on/4.2"
-sleep 1
-echo ""
-curl "http://$ip/api/relay/on/5.1"
+#sleep 1
+#echo ""
+#curl "http://$ip/api/relay/on/5.1"
 sleep 1
 echo ""
 curl "http://$ip/api/relay/on/5.2"

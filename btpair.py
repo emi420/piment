@@ -16,7 +16,7 @@ import pexpect
 class BTPair(object):
 
     waiting = False
-    _DEVICE_NAME = "HAS-10"
+    _DEVICE_NAME = "HAS"
 
     def __init__(self):
         waiting = False

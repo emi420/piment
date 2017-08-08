@@ -30,7 +30,7 @@ class BTServer(object):
 		self.server_sock.bind(("",PORT_ANY))
 		self.server_sock.listen(1)
 
-		advertise_service( self.server_sock, "HAS-10",
+		advertise_service( self.server_sock, "HAS",
 		                   service_id = self._UUID,
 		                   service_classes = [ self._UUID, SERIAL_PORT_CLASS ],
 		                   profiles = [ SERIAL_PORT_PROFILE ] )
